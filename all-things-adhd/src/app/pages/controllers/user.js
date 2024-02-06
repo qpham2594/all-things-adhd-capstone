@@ -20,4 +20,4 @@ async function createAccount (req,res) {
     }
 }
 
-module.exports = createAccount
+module.exports = {createAccount}

@@ -19,10 +19,28 @@ async function accountAccess(req,res) {
       return res.status(401).json({ error: 'Invalid username and/or password' });
     }
     res.status(200).json();
+
+    req.session.user = {
+      userId: userAccess._id,
+      username: userAccess.username,
+    };
+    req.session.save(); 
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
 
-module.exports = accountAccess;
+function logout(req, res) {
+  try {
+    req.session.destroy();
+
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
+module.exports = {accountAccess, logout}
