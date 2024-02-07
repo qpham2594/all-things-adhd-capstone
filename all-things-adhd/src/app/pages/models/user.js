@@ -1,46 +1,47 @@
-import {Schema, model, mongoose} from 'mongoose';
-const bcrypt = require ('bcrypt')
+import bcrypt from 'bcrypt';
+import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema (
+const { Schema, model } = mongoose;
+
+const userSchema = new Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    minlength: 6,
+  },
+  monthlyList: [
     {
-        username: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        password: {
-            type: String,
-            required: true,
-            maxlength: 10,
-            minlength: 6
-        },
-        monthlyList: [
-            {
-            type: Schema.Types.ObjectId,
-            ref: 'monthlyList'
-            }
-        ]
-    }
-)
+      type: Schema.Types.ObjectId,
+      ref: 'monthlyList',
+    },
+  ],
+});
 
-userSchema.pre('save', async function (passwordCheck) {
-    try {
-        if (this.isModified('password') || this.isNew) {
-            const hashingPassword = await bcrypt.hash(this.password,10);
-            this.password = hashingPassword
-        }
-        passwordCheck()
-    } catch (error) {
-        passwordCheck(error)
+userSchema.pre('save', async function (next) {
+  try {
+    if (this.isModified('password') || this.isNew) {
+      const hashingPassword = await bcrypt.hash(this.password, 12);
+      this.password = hashingPassword;
     }
-})
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 userSchema.methods.comparePassword = async function (passwordInput) {
-    try {
-        return await bcrypt.compare(passwordInput, this.password)
-    } catch (error) {
-        throw error
-    }
-}
+  try {
+    return await bcrypt.compare(passwordInput, this.password);
+  } catch (error) {
+    throw error;
+  }
+};
 
-module.exports = model('User', userSchema)
+const User = model('User', userSchema);
+
+export default User;

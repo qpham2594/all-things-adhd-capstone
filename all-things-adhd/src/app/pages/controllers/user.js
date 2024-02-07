@@ -3,6 +3,7 @@ const bcrypt = require ("bcrypt")
 
 async function createAccount (req,res) {
     try {
+        console.log('request reached createAccount')
         const {username, password} = req.body
         if (!username|| !password) {
             return res.status(400).json({error: "Please fill out both fields"})

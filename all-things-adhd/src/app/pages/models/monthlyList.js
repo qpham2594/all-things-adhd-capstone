@@ -1,6 +1,6 @@
-import {Schema, model, mongoose} from 'mongoose';
+import {Schema, model} from 'mongoose';
 
-const monthlyListSchema = new mongoose.Schema (
+const monthlyListSchema = new Schema (
     {
         user: {
             type: Schema.Types.ObjectId,
@@ -22,4 +22,5 @@ const monthlyListSchema = new mongoose.Schema (
 )
 
 const monthlyList = model('monthlyList', monthlyListSchema)
-module.exports = monthlyList  
+
+export default monthlyList
