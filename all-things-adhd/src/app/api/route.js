@@ -1,9 +1,12 @@
 import connectMongoDB from "../libs/mongodb";
-import {User} from "../pages/models";
 import { NextResponse } from "next/server";
+import authenticated from "../middleware/auth"
+import {User} from "../pages/models/user"
 
-export default async function postHandler(req) {
+export default async function POST(req) {
   try {
+    await authenticated(req,res);
+    
     if (req.method === "POST") {
       await connectMongoDB();
 

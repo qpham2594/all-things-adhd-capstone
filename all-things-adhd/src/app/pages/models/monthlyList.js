@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose';
+import {Schema, mongoose} from 'mongoose';
 
 const monthlyListSchema = new Schema (
     {
@@ -21,6 +21,4 @@ const monthlyListSchema = new Schema (
     }
 )
 
-const monthlyList = model('monthlyList', monthlyListSchema)
-
-export default monthlyList
+export default mongoose.models.monthlyList || mongoose.model("monthlyList", monthlyListSchema);
