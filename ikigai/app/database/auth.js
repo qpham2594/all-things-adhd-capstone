@@ -1,5 +1,5 @@
 import { compare} from "bcrypt";
-import {User} from './models/user'
+import User from '@/app/database/models/user'
 import connectMongoDB from "./libs/mongodbconnect";
 
 export async function login(username, password) {

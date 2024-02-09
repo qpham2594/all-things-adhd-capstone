@@ -1,5 +1,5 @@
 import connectMongoDB from "./libs/mongodbconnect";
-import {User} from './models/user'
+import User from '@/app/database/models/user'
 
 async function createUser(username, password) {
     try {
