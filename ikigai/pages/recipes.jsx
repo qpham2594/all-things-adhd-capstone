@@ -7,8 +7,8 @@ const RecipePage = () => {
   const recipeList = async () => {
     try {
         const params = {
-            ingredients: 'ingredients',
-            maxReadyTime: 'maxReadyTime'
+            ingredients: ingredients,
+            maxReadyTime: maxReadyTime
           };
         const response = await axios.get('/api/recipes', {params});
         const data = response.data;

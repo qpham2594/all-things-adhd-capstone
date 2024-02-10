@@ -11,6 +11,8 @@ async function createUser(username, password) {
       const user = await User.create({username, password})
       if (!user)
         throw new Error('Something went wrong when creating the account')
+
+      return user.toJSON()
     } catch (error) {
       throw new Error('Unable to create user account');
     }
