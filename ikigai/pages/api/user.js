@@ -1,4 +1,4 @@
-import  {login}  from '@/app/database/auth';
+//import  {login}  from '@/app/database/auth';
 import { createUser } from '@/app/database/user';
 import { withIronSession } from 'next-iron-session';
 import connectMongoDB from '@/app/database/libs/mongodbconnect';
@@ -21,6 +21,7 @@ export default withIronSession(
           res.status(200).json({ message: 'User created successfully', user: newUser });
         } catch (error) {
           res.status(500).json({ error: 'Failed to create user' });
+          break;
         }
 
       case 'login':
@@ -31,6 +32,7 @@ export default withIronSession(
           res.status(200).json({ message: 'Login successful', user: authenticatedUser, nextAuthSession });
         } catch (error) {
           res.status(401).json({ error: "Failed to login" });
+          break;
         }
 
       case 'logout':
@@ -45,6 +47,7 @@ export default withIronSession(
         } catch (error) {
           console.error('Error during logout:', error);
           res.status(500).json({ error: 'Failed to logout' });
+          break;
         }
 
       default:

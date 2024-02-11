@@ -1,4 +1,4 @@
 const user = require("./user")
-const monthlylist = require("./monthlylist")
+const monthlylist = require("./monthlyList")
 
 module.exports = { user, monthlylist}
