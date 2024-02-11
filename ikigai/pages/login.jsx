@@ -11,7 +11,7 @@ export default function LoginPage() {
     const username = formData.get('username')
     const password = formData.get('password')
  
-    const response = await fetch('/api/auth/login', {
+    const response = await fetch('/api/create-session', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),

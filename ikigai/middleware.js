@@ -1,22 +1,20 @@
-import { NextResponse } from 'next/server'
-import { getIronSession } from "iron-session/edge";
-import sessionOptions from './config/session'
+import { NextResponse } from 'next/server';
+import { IronSession } from 'next-iron-session';
+import sessioninfo from './config/session';
 
 export async function middleware(req) {
   const res = NextResponse.next();
-  const session = await getIronSession(req, res, sessionOptions);
+  const session = await IronSession(req, res, sessioninfo);
 
-  const { user } = session;
+  const { User } = session;
 
-  if (!user) {
-    return NextResponse.redirect(new URL('/login', req.url))
+  if (!User) {
+    return NextResponse.redirect(new URL('/', req.url));
   }
 
   return res;
 }
 
-export const config = {
-  matcher: [
-    "/favorites",
-  ]
-}
+//applies to all routes by default
+
+export const config = {};
