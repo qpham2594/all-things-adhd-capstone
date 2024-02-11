@@ -1,4 +1,4 @@
-import connection from '@/app/database/controllers/utils/connection';
+import connection from '@/database/controllers/utils/connection';
 import { createUser } from '../../../.next/database/controllers/user';
 import { withIronSession } from 'next-iron-session';
 import { signIn, signOut, useSession } from 'next-auth/react';

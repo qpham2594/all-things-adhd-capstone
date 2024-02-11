@@ -1,3 +1,4 @@
+
 import { NextResponse } from 'next/server';
 import { IronSession } from 'next-iron-session';
 import sessioninfo from './config/session';
@@ -15,6 +16,6 @@ export async function middleware(req) {
   return res;
 }
 
-//applies to all routes by default
+//applies to all routes instead
 
 export const config = {};
