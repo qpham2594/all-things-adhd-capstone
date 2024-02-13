@@ -1,4 +1,3 @@
-// pages/api/register/route.js
 import { NextResponse } from "next/server";
 import connectMongoDB from "@/lib/mongodb";
 import User from "@/database/models/user";
