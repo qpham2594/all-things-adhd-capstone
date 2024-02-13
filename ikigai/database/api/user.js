@@ -1,5 +1,5 @@
 //import  {login}  from '@/app/database/auth';
-import { createUser } from '@/app/database/user';
+/*import { createUser } from '@/app/database/user';
 import { withIronSession } from 'next-iron-session';
 import connectMongoDB from '@/app/database/libs/mongodbconnect';
 import { signIn, signOut, useSession } from 'next-auth/react';
@@ -55,7 +55,7 @@ export default withIronSession(
     }
   },
   sessionInfo
-);
+); */
 
 
 

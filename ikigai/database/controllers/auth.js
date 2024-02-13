@@ -1,4 +1,4 @@
-import { compare} from "bcrypt";
+/*import { compare} from "bcrypt";
 import User from '@/database/models/user'
 import connectMongoDB from "./libs/mongodbconnect";
 
@@ -19,4 +19,4 @@ export async function login(username, password) {
   }
 
   return accountLogin
-};
+}; */

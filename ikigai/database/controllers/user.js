@@ -1,4 +1,4 @@
-import connectMongoDB from "./libs/mongodbconnect";
+/*import connectMongoDB from "./libs/mongodbconnect";
 import User from '@/database/models/user'
 
 async function createUser(username, password) {
@@ -17,4 +17,4 @@ async function createUser(username, password) {
       throw new Error('Unable to create user account');
     }
   }
-  export {createUser};
+  export {createUser}; */

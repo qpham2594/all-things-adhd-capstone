@@ -4,7 +4,7 @@ const Dashboard = ({ username }) => {
   return (
     <div>
       <h1>Welcome, {username}!</h1>
-      <p>This is your dashboard. You have successfully logged in.</p>
+      <p> You have successfully logged in.</p>
     </div>
   );
 };
