@@ -1,32 +1,77 @@
-import { FormEvent } from 'react'
+
 import { useRouter } from 'next/router'
  
-export default function LoginPage() {
-  const router = useRouter()
- 
-  async function handleSubmit(event) {
-    event.preventDefault()
- 
-    const formData = new FormData(event.currentTarget)
-    const username = formData.get('username')
-    const password = formData.get('password')
- 
-    const response = await fetch('/api/create-session', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password }),
-    })
- 
-    if (response.ok) {
-      router.push('/profile')
+import React, { useState } from 'react';
+
+const LoginForm = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    if (!username || !password) {
+      alert('Please fill out both username and password fields.');
+      return;
     }
-  }
- 
+  
+    try {
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+  
+      if (res.ok) {
+        const form = event.target;
+        form.reset();
+        console.log('User registration successful');
+      } else {
+        console.log('User registration unsuccessful');
+      }
+    } catch (error) {
+      console.log('Error when registering:', error);
+    }
+    console.log('Submitted:', { username, password });
+  
+    // Reset the form fields
+    setUsername('');
+    setPassword('');
+  };
+  
   return (
     <form onSubmit={handleSubmit}>
-      <input type="username" name="username" placeholder="Usersname" required />
-      <input type="password" name="password" placeholder="Password" required />
-      <button type="submit">Sign Up</button>
+      <div>
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          value={username}
+          onChange={handleUsernameChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          value={password}
+          onChange={handlePasswordChange}
+        />
+      </div>
+      <button type="submit">Login</button>
     </form>
-  )
-}
+  );
+};
+
+export default LoginForm;

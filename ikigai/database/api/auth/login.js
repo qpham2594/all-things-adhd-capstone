@@ -1,4 +1,4 @@
-import connection from '@/database/controllers/utils/connection';
+/*import connection from '@/database/controllers/utils/connection';
 import { createUser } from '../../../.next/database/controllers/user';
 import { withIronSession } from 'next-iron-session';
 import { signIn, signOut, useSession } from 'next-auth/react';
@@ -64,4 +64,38 @@ async function logoutAction(req, res) {
     console.error('Error during logout:', error);
     res.status(500).json({ error: 'Failed to logout' });
   }
-}
+} */
+/*
+import { login } from "@/database/controllers/auth";
+
+export default async function handler (req,res) {
+  try {
+    const {username,password} = req.body
+    await login('credentials', {username, password})
+    res.status(200).json({success:true})
+  }catch(error) {
+    if (error) {
+      res.status(401).json({error: "Wrong login"})
+    } else {
+      res.status(500).json({error: "Something else is wrong(login)"})
+    }
+  }
+}*/
+
+// pages/api/auth/signin.js
+
+import withSession from "@/config/session";
+
+export default withSession(async (req, res) => {
+  // Replace this with your actual authentication logic
+  const { username, password } = req.body;
+
+  if (username === 'username' && password === 'password') {
+    req.session.set('user', { username });
+    await req.session.save();
+    return res.status(200).json({ success: true });
+  }
+
+  return res.status(401).json({ success: false, message: 'Invalid credentials' });
+});
+
