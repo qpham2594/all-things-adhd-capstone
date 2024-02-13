@@ -15,19 +15,19 @@ export const authenticationStep = {
   
           try {
             await connectMongoDB();
-            const user = await User.findOne({ username });
+            const findUser = await User.findOne({ username });
   
-            if (!user) {
+            if (!findUser) {
               return null;
             }
   
-            const comparePassword = await bcrypt.compare(password, user.password);
+            const comparePassword = await bcrypt.compare(password, findUser.password);
   
             if (!comparePassword) {
               return null;
             }
   
-            return user;
+            return findUser;
           } catch (error) {
             console.log("Error: ", error);
           }

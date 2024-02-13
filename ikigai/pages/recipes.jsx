@@ -1,26 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import {recipesSearch, recipesByTime, recipesByID} from '../app/api/recipes/route'
+import Image from 'next/image';
 
 const RecipePage = () => {
-  const [_, setRecipes] = useState([]);
 
-  const recipeList = async () => {
-    try {
-        const params = {
-            ingredients: ingredients,
-            maxReadyTime: maxReadyTime
-          };
-        const response = await axios.get('/api/recipes', {params});
-        const data = response.data;
-        setRecipes(data.id || []);
-        } catch (error) {
-        console.error('Error fetching data:', error);
-        }
-    };
-
-  useEffect(() => {
-    recipeList();
-  }, []);
 
   return (
     <div>

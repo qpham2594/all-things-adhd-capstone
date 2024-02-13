@@ -1,16 +1,12 @@
-'use client';
-
 import { useState } from 'react';
-import Link from 'next/link';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router'; 
+import {useRouter} from 'next/router';
 
-const LoginForm = () => {
+const createAccountForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  //const router = useRouter();
+  const router = useRouter()
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -31,24 +27,33 @@ const LoginForm = () => {
     }
 
     try {
-      const res = await signIn('credentials', {
-        username,
-        password,
-        redirect: false,
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
       });
 
-      if (res.error) {
-        setError('Invalid login info');
-        return;
+      if (res.ok) {
+        const form = event.target;
+        form.reset();
+        router.replace('/'); 
+        console.log('Login JSX: User registration successful');
+        setError(''); 
+      } else {
+        const errorData = await res.json();
+        setError(`Create Account JSX: User registration unsuccessful - ${errorData.message}`);
       }
 
-      //router.replace('/'); 
+      
+
     } catch (error) {
-      console.log('Error when logging in:', error);
-      setError('Error occurred during log in. Please try again.');
+      console.log('Error when registering:', error);
+      setError('Error occurred during registration. Please try again.');
     }
 
-    console.log('Login JSX Submitted:', { username, password });
+    console.log('Create Account JSX Submitted:', { username, password });
 
     setUsername('');
     setPassword('');
@@ -75,11 +80,12 @@ const LoginForm = () => {
             onChange={handlePasswordChange}
           />
         </div>
-        <button type="submit">Log In</button>
+        <button type="submit">Create an Account</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };
 
-export default LoginForm;
+export default createAccountForm;
+

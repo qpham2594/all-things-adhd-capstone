@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export default async function recipesSearch(query) {
+export async function recipesSearch(query) {
   try {
     const apiKey = process.env.API_KEY;
 
@@ -17,7 +17,7 @@ export default async function recipesSearch(query) {
   }
 }
 
-export default async function recipesbyTime(maxTime) {
+export async function recipesByTime(maxTime) {
     try {
       const apiKey = process.env.API_KEY;
   
@@ -34,7 +34,7 @@ export default async function recipesbyTime(maxTime) {
   }
 
 
-export default async function recipesbyID(recipeId) {
+export async function recipesByID(recipeId) {
     try {
       const apiKey = process.env.API_KEY;
   
