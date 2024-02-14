@@ -1,14 +1,11 @@
-"use client"
-
-import { signOut, useSession } from 'next-auth/react';
+import { signOut, getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Header from '@/components/header';
 
-const LogoutOption = () => {
-  const { data: session } = useSession();
+const LogoutOption = ({ session }) => {
   const router = useRouter();
 
-  const handleLogout = async () => {
+  const LogoutHandle = async () => {
     try {
       await signOut();
       router.replace('/'); 
@@ -21,12 +18,19 @@ const LogoutOption = () => {
     <div>
       <Header/>
       {session ? (
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={LogoutHandle}>Logout</button>
       ) : (
         <p>You are not logged in.</p>
       )}
     </div>
   );
 };
+
+export async function getServerSideProps(logout) {
+  const session = await getSession(logout);
+  return {
+    props: { session },
+  };
+}
 
 export default LogoutOption;
