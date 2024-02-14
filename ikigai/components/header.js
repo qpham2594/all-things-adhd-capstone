@@ -10,7 +10,7 @@ export default function Header() {
                 <Link href= "/login"> Login </Link>
                 <Link href= "/monthlylist"> Create Your Monthly List! </Link>
                 <Link href= "/recipes"> Search for Recipes </Link>
-                <Link href= "/logout"> Logout </Link>
+                <Link href= "/"> Logout </Link>
             </div>
         </header>
     )
