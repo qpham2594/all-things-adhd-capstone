@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  //const router = useRouter();
+  const router = useRouter();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -42,7 +42,7 @@ const LoginForm = () => {
         return;
       }
 
-      //router.replace('/'); 
+      router.replace('/'); 
     } catch (error) {
       console.log('Error when logging in:', error);
       setError('Error occurred during log in. Please try again.');
