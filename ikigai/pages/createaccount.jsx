@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {useRouter} from 'next/router';
+import Header from '@/components/header';
 
 const createAccountForm = () => {
   const [username, setUsername] = useState('');
@@ -38,7 +39,7 @@ const createAccountForm = () => {
       if (res.ok) {
         const form = event.target;
         form.reset();
-        router.replace('/'); 
+        router.replace('/login'); 
         console.log('Login JSX: User registration successful');
         setError(''); 
       } else {
@@ -61,6 +62,7 @@ const createAccountForm = () => {
 
   return (
     <div>
+      <Header/>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>

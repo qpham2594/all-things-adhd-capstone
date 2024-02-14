@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Header from '@/components/header';
 
 const MonthlyList = () => {
   const [tasks, setTasks] = useState([]);
@@ -80,6 +81,7 @@ const MonthlyList = () => {
 
   return (
     <div>
+      <Header/>
       <h1>Monthly List</h1>
       <ul>
         {tasks.map((task) => (
