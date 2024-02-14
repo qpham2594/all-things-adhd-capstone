@@ -1,5 +1,5 @@
 import connectMongoDB from "@/lib/mongodb";
-import { User } from "@/database/models/user";
+import User  from "@/database/models/user";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
@@ -15,7 +15,7 @@ export const authenticationStep = {
   
           try {
             await connectMongoDB();
-            const findUser = await User.findOne({ username });
+            const {findUser} = await User.findOne({ username });
   
             if (!findUser) {
               return null;
