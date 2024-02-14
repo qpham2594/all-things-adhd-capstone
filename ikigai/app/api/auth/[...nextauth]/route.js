@@ -15,7 +15,7 @@ export const authenticationStep = {
   
           try {
             await connectMongoDB();
-            const {findUser} = await User.findOne({ username });
+            const findUser = await User.findOne({ username });
   
             if (!findUser) {
               return null;
