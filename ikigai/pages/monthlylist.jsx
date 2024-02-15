@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
 import Header from '@/components/header';
 
 const MonthlyList = () => {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
+  const { data: session } = useSession();
 
   useEffect(() => {
     FetchTasks();
-  }, []);
+  }, [session]); 
 
   const FetchTasks = async () => {
-    const response = await fetch('/api/todo');
-    const data = await response.json();
-    setTasks(data);
+    try {
+      const response = await fetch('/api/todo');
+      const data = await response.json();
+      setTasks(data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    }
   };
 
   const AddTask = async () => {
@@ -22,7 +28,7 @@ const MonthlyList = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ task: newTask }),
+        body: JSON.stringify({ task: newTask, date: new Date(), user: session?.user?.id }),
       });
 
       if (response.ok) {
@@ -39,12 +45,12 @@ const MonthlyList = () => {
 
   const UpdateTask = async (taskId, updatedTask) => {
     try {
-      const response = await fetch('/api/todo', {
+      const response = await fetch(`/api/todo/${taskId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: taskId, task: updatedTask }),
+        body: JSON.stringify({ task: updatedTask, date: new Date(), user: session?.user?.id }),
       });
 
       if (response.ok) {
@@ -60,12 +66,12 @@ const MonthlyList = () => {
 
   const DeleteTask = async (taskId) => {
     try {
-      const response = await fetch('/api/todo', {
+      const response = await fetch(`/api/todo/${taskId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: taskId }),
+        body: JSON.stringify({ user: session?.user?.id }),
       });
 
       if (response.ok) {
@@ -81,7 +87,7 @@ const MonthlyList = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <h1>Monthly List</h1>
       <ul>
         {tasks.map((task) => (
@@ -108,3 +114,4 @@ const MonthlyList = () => {
 };
 
 export default MonthlyList;
+

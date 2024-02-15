@@ -34,11 +34,11 @@ export async function recipesByTime(maxTime) {
   }
 
 
-export async function recipesByID(recipeId) {
+export async function recipesByID(id) {
     try {
       const apiKey = process.env.API_KEY;
   
-      const APILink = `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}`;
+      const APILink = `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`;
   
       const response = await axios.get(APILink);
       const data = response.data;

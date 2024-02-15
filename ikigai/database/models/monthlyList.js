@@ -9,7 +9,7 @@ const monthlyListSchema = new Schema (
         },
 
         date: {
-            type: Date,
+            type:String,
             required: true
         },
 
