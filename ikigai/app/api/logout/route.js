@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   const session = await getSession({ req });
 
   if (session) {
-    await signOut({ callbackUrl: '/' });
+    await signOut({ callbackUrl: '/login' });
 
     res.status(200).json({ message: 'Logout successful' });
   } else {

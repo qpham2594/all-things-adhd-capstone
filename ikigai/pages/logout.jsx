@@ -8,7 +8,7 @@ const LogoutOption = () => {
   const LogoutHandle = async () => {
     try {
       await signOut();
-      router.replace('/');
+      router.replace('/login');
     } catch (error) {
       console.error('Logout error:', error);
     }

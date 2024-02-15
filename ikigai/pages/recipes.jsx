@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useSession, getSession } from 'next-auth/react';
 import { recipesSearch, recipesByTime } from '../app/api/recipes/route';
-import Image from 'next/image';
 
 const RecipePage = () => {
   const { data: session } = useSession();
@@ -55,7 +54,6 @@ const RecipePage = () => {
                 {searchResults.map((recipe) => (
                   <li key={recipe.id}>
                     {recipe.title}
-                    {recipe.image}
                   </li>
                 ))}
               </ul>
@@ -69,15 +67,6 @@ const RecipePage = () => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  return {
-    props: {
-      session,
-    },
-  };
-}
 
 export default RecipePage;
 
