@@ -1,8 +1,13 @@
+import Header from "@/components/header";
+
 
 export default function Home() {
   return (
     <main>
-   HELLO THERE
+      <Header/>
+      <div>
+        HELLO THERE
+      </div>   
     </main>
   );
 }
