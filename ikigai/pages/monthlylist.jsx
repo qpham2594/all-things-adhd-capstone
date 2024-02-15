@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import Header from '@/components/header';
 
-const MonthlyList = () => {
+export default function MonthlyList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
   const { data: session } = useSession();
-
-  useEffect(() => {
-    FetchTasks();
-  }, [session]); 
 
   const FetchTasks = async () => {
     try {
@@ -20,6 +15,10 @@ const MonthlyList = () => {
       console.error('Error fetching tasks:', error);
     }
   };
+
+  useEffect(() => {
+    FetchTasks();
+  }, [session]);
 
   const AddTask = async () => {
     try {
@@ -45,6 +44,8 @@ const MonthlyList = () => {
 
   const UpdateTask = async (taskId, updatedTask) => {
     try {
+      updatedTask = updatedTask || ''; 
+
       const response = await fetch(`/api/todo/${taskId}`, {
         method: 'PUT',
         headers: {
@@ -87,7 +88,6 @@ const MonthlyList = () => {
 
   return (
     <div>
-      <Header />
       <h1>Monthly List</h1>
       <ul>
         {tasks.map((task) => (
@@ -111,7 +111,6 @@ const MonthlyList = () => {
       </div>
     </div>
   );
-};
+}
 
-export default MonthlyList;
 

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import {useRouter} from 'next/router';
-import Header from '@/components/header';
 
 const createAccountForm = () => {
   const [username, setUsername] = useState('');
@@ -62,7 +61,6 @@ const createAccountForm = () => {
 
   return (
     <div>
-      <Header/>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="username">Username:</label>

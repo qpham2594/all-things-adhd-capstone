@@ -1,14 +1,14 @@
-import { signOut, getSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import Header from '@/components/header';
 
-const LogoutOption = ({ session }) => {
+const LogoutOption = () => {
+  const { data: session } = useSession();
   const router = useRouter();
 
   const LogoutHandle = async () => {
     try {
       await signOut();
-      router.replace('/'); 
+      router.replace('/');
     } catch (error) {
       console.error('Logout error:', error);
     }
@@ -16,7 +16,6 @@ const LogoutOption = ({ session }) => {
 
   return (
     <div>
-      <Header/>
       {session ? (
         <button onClick={LogoutHandle}>Logout</button>
       ) : (
@@ -26,11 +25,5 @@ const LogoutOption = ({ session }) => {
   );
 };
 
-export async function getServerSideProps(logout) {
-  const session = await getSession(logout);
-  return {
-    props: { session },
-  };
-}
-
 export default LogoutOption;
+
