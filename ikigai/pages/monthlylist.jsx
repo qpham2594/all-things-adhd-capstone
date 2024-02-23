@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 
 export default function MonthlyList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
   const { data: session } = useSession();
+  console.log('Session Payload:', session);
+
+console.log('Session:', session);
+console.log('User:', session?.user);
+
 
   const FetchTasks = async () => {
     try {
@@ -17,7 +23,9 @@ export default function MonthlyList() {
   };
 
   useEffect(() => {
-    FetchTasks();
+    if (session) {
+      FetchTasks();
+    }
   }, [session]);
 
   const AddTask = async () => {
@@ -44,7 +52,7 @@ export default function MonthlyList() {
 
   const UpdateTask = async (taskId, updatedTask) => {
     try {
-      updatedTask = updatedTask || ''; 
+      updatedTask = updatedTask || '';
 
       const response = await fetch(`/api/todo/${taskId}`, {
         method: 'PUT',
@@ -89,28 +97,42 @@ export default function MonthlyList() {
   return (
     <div>
       <h1>Monthly List</h1>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task._id}>
-            {task.task}{' '}
-            <button onClick={() => UpdateTask(task._id, prompt('Enter updated task:'))}>
-              Update
-            </button>{' '}
-            <button onClick={() => DeleteTask(task._id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-      <div>
-        <input
-          type="text"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          placeholder="Enter new task"
-        />
-        <button onClick={AddTask}>Add Task</button>
-      </div>
+      {session?.isAuthenticated ? (
+        <>
+          <ul>
+            {tasks.map((task) => (
+              <li key={task._id}>
+                {task.task}{' '}
+                <button onClick={() => UpdateTask(task._id, prompt('Enter updated task:'))}>
+                  Update
+                </button>{' '}
+                <button onClick={() => DeleteTask(task._id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+          <div>
+            <input
+              type="text"
+              value={newTask}
+              onChange={(e) => setNewTask(e.target.value)}
+              placeholder="Enter new task"
+            />
+            <button onClick={AddTask}>Add Task</button>
+          </div>
+        </>
+      ) : (
+        <p>Please log in to access the to-do list.</p>
+      )}
     </div>
   );
 }
 
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
 
+  return {
+    props: {
+      session,
+    },
+  };
+}
