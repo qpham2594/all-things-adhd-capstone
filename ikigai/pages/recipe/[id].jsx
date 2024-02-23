@@ -19,20 +19,4 @@ const RecipeDetailPage = ({ recipe }) => {
 
 export default RecipeDetailPage;
 
-export async function getStaticPaths() {
-  const response = await axios.get('/api/recipes');
-  const recipes = response.data;
 
-  const paths = recipes.map((recipe) => ({
-    params: { id: recipe.id.toString() },
-  }));
-
-  return { paths, fallback: true };
-}
-
-export async function getStaticProps({ params }) {
-  const response = await axios.get(`/api/recipes/${params.id}`);
-  const recipe = response.data;
-
-  return { props: { recipe }, revalidate: 60 };
-}

@@ -1,29 +1,49 @@
-import { useSession, signOut } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-const LogoutOption = () => {
-  const { data: session } = useSession();
+const Logout = () => {
   const router = useRouter();
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
 
-  const LogoutHandle = async () => {
-    try {
-      await signOut();
-      router.replace('/login');
-    } catch (error) {
-      console.error('Logout error:', error);
+  const handleLogout = async () => {
+    const session = await getSession();
+
+    if (session) {
+      try {
+        const response = await fetch('/api/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+        });
+        
+        if (response.ok) {
+          await router.push('/');
+          setIsLoggedOut(true);
+          console.log('Logout successful');
+        } else {
+          console.error('Logout failed:', await response.json());
+        }
+      } catch (error) {
+        console.error('Error during logout:', error);
+      }
+    } else {
+      console.error('Not authenticated');
     }
   };
 
   return (
     <div>
-      {session ? (
-        <button onClick={LogoutHandle}>Logout</button>
+      {isLoggedOut ? (
+        <p>You are logged out.</p>
       ) : (
-        <p>You are not logged in.</p>
+        <button onClick={handleLogout}>Logout</button>
       )}
     </div>
   );
 };
 
-export default LogoutOption;
+export default Logout;
 

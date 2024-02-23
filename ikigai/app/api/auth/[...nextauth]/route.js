@@ -34,11 +34,14 @@ export const authenticationStep = {
           }
           
           console.log('Authentication successful for username:', username);
-          
+         
           // Add token creation
           findUser.token = createToken(findUser);
 
-          return findUser;
+          return {
+            id: findUser.id,
+            username: findUser.username,
+          }
         } catch (error) {
           console.error('Error during authorization:', error);
           return null;
@@ -53,23 +56,25 @@ export const authenticationStep = {
   callbacks: {
     async jwt(token, user) {
       if (user) {
-        token.user = user;
+        token.username = username;
       }
+      console.log('JWT Token:', token);
       return token;
     },
     async session(session, token) {
-      if (token && token.user) {
-        session.user = token.user;
+      if (token && token.username) {
+        session.user = {username:token.user};
       }
+      console.log('Session:', session);
       return session;
     },
   },
   secret: process.env.NEXTAUTH_KEY,
   pages: {
     signIn: '/login',
-    signOut: '/logout',
-    monthlyList: '/monthlylist',
-    recipes: '/recipes',
+    signOut: '/login',
+    monthlyList: '/login',
+
   },
 };
 

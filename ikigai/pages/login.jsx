@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/router'; 
+import { useRouter } from 'next/router';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -29,20 +28,23 @@ const LoginForm = () => {
     }
 
     try {
-      const res = await signIn('credentials', {
-        username,
-        password,
-        redirect: false,
+      // Make a request to the backend login API
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
       });
 
-      if (res.error) {
+      if (!response.ok) {
         setError('Invalid login info');
         return;
       }
 
-      router.replace('/'); 
+      router.replace('/');
     } catch (error) {
-      console.log('Error when logging in:', error);
+      console.error('Error when logging in:', error);
       setError('Error occurred during log in. Please try again.');
     }
 
