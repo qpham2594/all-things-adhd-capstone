@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/react';
 export default function MonthlyList({ session }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const fetchTasks = async () => {
     try {
@@ -27,19 +28,23 @@ export default function MonthlyList({ session }) {
 
   const addTask = async () => {
     try {
+      console.log('User ID:', session?.user?.id);
       const response = await fetch('/api/todo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session?.accessToken}`,
         },
-        body: JSON.stringify({ task: newTask, date: new Date(), user: session?.user?.id }),
+        body: JSON.stringify({ task: newTask, date: selectedDate || new Date(), user: session?.user?.id }),
       });
-
-      if (response.ok) {
+  
+      if (response.status === 200) {
         console.log('Task added successfully');
+        const newTaskData = await response.json();
+
+        setTasks((prevTasks) => [...prevTasks, newTaskData]);
         setNewTask('');
-        fetchTasks();
+        setSelectedDate(''); 
       } else {
         console.error('Error adding task:', await response.json());
       }
@@ -47,23 +52,28 @@ export default function MonthlyList({ session }) {
       console.error('Error adding task:', error);
     }
   };
+  
 
-  const updateTask = async (taskId, updatedTask) => {
+  const updateTask = async (_id, updatedTask) => {
     try {
       updatedTask = updatedTask || '';
-
-      const response = await fetch(`/api/todo/${taskId}`, {
+  
+      const response = await fetch(`/api/todo/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session?.accessToken}`,
         },
-        body: JSON.stringify({ task: updatedTask, date: new Date(), user: session?.user?.id }),
+        body: JSON.stringify({ id: _id, task: updatedTask, date: new Date(), user: session?.user?.id }),
       });
-
-      if (response.ok) {
+  
+      if (response.status === 200) {
         console.log('Task updated successfully');
-        fetchTasks();
+        setTasks((prevTasks) =>
+          prevTasks.map((task) =>
+            task._id === _id ? { ...task, task: updatedTask } : task
+          )
+        );
       } else {
         console.error('Error updating task:', await response.json());
       }
@@ -71,21 +81,21 @@ export default function MonthlyList({ session }) {
       console.error('Error updating task:', error);
     }
   };
-
-  const deleteTask = async (taskId) => {
+  
+  const deleteTask = async (_id) => {
     try {
-      const response = await fetch(`/api/todo/${taskId}`, {
+      const response = await fetch('/api/todo', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${session?.accessToken}`,
         },
-        body: JSON.stringify({ user: session?.user?.id }),
+        body: JSON.stringify({ id: _id }),
       });
-
-      if (response.ok) {
+  
+      if (response.status === 200) {
         console.log('Task deleted successfully');
-        fetchTasks();
+        setTasks((prevTasks) => prevTasks.filter((task) => task._id !== _id));
       } else {
         console.error('Error deleting task:', await response.json());
       }
@@ -93,6 +103,8 @@ export default function MonthlyList({ session }) {
       console.error('Error deleting task:', error);
     }
   };
+  
+  
 
   return (
     <div>
@@ -111,14 +123,20 @@ export default function MonthlyList({ session }) {
             ))}
           </ul>
           <div>
-            <input
-              type="text"
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              placeholder="Enter new task"
-            />
-            <button onClick={addTask}>Add Task</button>
-          </div>
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          placeholder="Enter new task"
+        />
+        <input
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          placeholder="Select date"
+        />
+        <button onClick={addTask}>Add Task</button>
+      </div>
         </>
       ) : (
         <p>Please log in to access the to-do list.</p>

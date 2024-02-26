@@ -3,17 +3,19 @@ import monthlyList from "@/database/models/monthlyList";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-    try {
-      const { user, date, task } = await req.json();
-      await connectMongoDB();
-      await monthlyList.create({ user, date, task });
-  
-      return NextResponse.json({ message: "Task is added" }, { status: 201 });
-    } catch (error) {
-      console.error("Error creating task:", error);
-      return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
-    }
+  try {
+    const { user, date, task } = await req.json();
+    console.log('Received data:', { user, date, task });
+    await connectMongoDB();
+    await monthlyList.create({ user, date, task });
+
+    return NextResponse.json({ message: "Task is added" }, { status: 201 });
+  } catch (error) {
+    console.error("Error creating task:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
+}
+
   
   export async function GET() {
     try {
@@ -28,11 +30,11 @@ export async function POST(req) {
   
   export async function PUT(req) {
     try {
-      const { user, task } = await req.json();
+      const { _id, task } = await req.json();
       await connectMongoDB();
       
       const updatedTask = await monthlyList.findByIdAndUpdate(
-        user,
+        _id,
         { task },
         { new: true }
       );
@@ -46,10 +48,10 @@ export async function POST(req) {
   
   export async function DELETE(req) {
     try {
-      const { id } = await req.json();
+      const { _id } = await req.json();
       await connectMongoDB();
   
-      await monthlyList.findByIdAndDelete(id);
+      await monthlyList.findByIdAndDelete(_id);
   
       return NextResponse.json({ message: "Task deleted successfully" }, { status: 200 });
     } catch (error) {
