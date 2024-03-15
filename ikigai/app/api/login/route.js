@@ -7,11 +7,10 @@ import { createToken } from '@/lib/token';
 
 export default {
   api: {
-    bodyParser: {
-      sizeLimit: '1mb',
-    },
+    bodyParser: true,
   },
 };
+
 
 export async function POST(req) {
   try {
