@@ -4,13 +4,14 @@ import User from '@/database/models/user';
 import { compare } from 'bcrypt';
 import { createToken } from '@/lib/token';
 
-/*
-export const config = {
+
+export default {
   api: {
-    bodyParser: true,
+    bodyParser: {
+      sizeLimit: '1mb',
+    },
   },
 };
-*/
 
 export async function POST(req) {
   try {
