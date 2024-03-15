@@ -5,13 +5,6 @@ import { compare } from 'bcrypt';
 import { createToken } from '@/lib/token';
 
 
-export default {
-  api: {
-    bodyParser: true,
-  },
-};
-
-
 export async function POST(req) {
   try {
     const { username, password } = await req.json();
