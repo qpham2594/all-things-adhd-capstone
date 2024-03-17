@@ -3,7 +3,7 @@ import User from '@/database/models/user';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
-import { createToken } from '@/lib/token';
+import { createToken } from '@/app/utils/authToken';
 
 connectMongoDB();
 
@@ -35,11 +35,11 @@ export const authenticationStep = {
           
           console.log('Authentication successful for username:', username);
          
-          // Add token creation
-          findUser.token = createToken(findUser);
+          const token = createToken(findUser);
 
           return {
             id: findUser.id,
+            token,
             username: findUser.username,
           }
         } catch (error) {
@@ -56,14 +56,14 @@ export const authenticationStep = {
   callbacks: {
     async jwt(token, user) {
       if (user) {
-        token.username = username;
+        token.id = user.id; // Set the user's id in the token
       }
       console.log('JWT Token:', token);
       return token;
     },
     async session(session, token) {
-      if (token && token.username) {
-        session.user = {username:token.user};
+      if (token && token.id) {
+        session.user = { id: token.id }; // Set the user's id in the session
       }
       console.log('Session:', session);
       return session;
@@ -74,7 +74,6 @@ export const authenticationStep = {
     signIn: '/login',
     signOut: '/login',
     monthlyList: '/login',
-
   },
 };
 

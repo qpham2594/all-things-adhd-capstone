@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import connectMongoDB from '@/lib/mongodb';
 import User from '@/database/models/user';
 import { compare } from 'bcrypt';
-import { createToken } from '@/lib/token';
+import { createToken } from '@/app/utils/authToken';
+
 
 export const config = {
   api: {
@@ -10,12 +11,8 @@ export const config = {
   },
 };
 
-export default async function handler(req, res) {
+export async function POST(req) {
   try {
-    if (req.method !== 'POST') {
-      return NextResponse.error(new Error('Method not allowed'), { status: 405 });
-    }
-
     const { username, password } = await req.json();
     await connectMongoDB();
 
@@ -32,7 +29,6 @@ export default async function handler(req, res) {
       return NextResponse.json({ message: 'Invalid username or password' }, { status: 401 });
     }
 
-    // Create a token
     const token = createToken(existingUser);
 
     return NextResponse.json({ message: 'Login successful', token }, { status: 200 });
@@ -41,7 +37,6 @@ export default async function handler(req, res) {
     return NextResponse.json({ message: 'Unable to log in' }, { status: 500 });
   }
 }
-
 
 /*
 Previously, sign-in from next/auth was used which only handles the client side. That's why when logging in on the

@@ -13,7 +13,7 @@ const RecipePage = () => {
     if (!query.trim()) return;
 
     try {
-      const allRecipes = await recipesSearch({ query });
+      const allRecipes = await recipesSearch(query);
       console.log('General Search Results:', allRecipes);
       setSearchResults(allRecipes);
     } catch (error) {
@@ -26,7 +26,7 @@ const RecipePage = () => {
     if (!maxReadyTime.trim()) return;
 
     try {
-      const quickRecipes = await recipesByTime({ maxReadyTime });
+      const quickRecipes = await recipesByTime(maxReadyTime);
       console.log('Timed Search Results:', quickRecipes);
       setSearchResults(quickRecipes);
     } catch (error) {

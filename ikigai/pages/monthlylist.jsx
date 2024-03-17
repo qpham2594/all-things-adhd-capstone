@@ -5,7 +5,7 @@ import styles from '../app/styles/page.module.css'
 export default function MonthlyList({ session }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState('');
   const [completedTasks, setCompletedTasks] = useState(0);
   const [puzzlePiecesRevealed, setPuzzlePiecesRevealed] = useState(0);
   const [revealPuzzle, setRevealPuzzle] = useState(false);

@@ -1,6 +1,6 @@
-const fetchRecipeData = async (url) => {
+const fetchRecipeData = async (APILink) => {
   try {
-    const response = await fetch(url);
+    const response = await fetch(APILink);
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
