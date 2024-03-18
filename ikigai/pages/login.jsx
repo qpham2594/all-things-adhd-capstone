@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { signIn } from 'next-auth/react';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -28,28 +29,25 @@ const LoginForm = () => {
     }
 
     try {
-      // Make a request to the backend login API
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
+      const res = await signIn('credentials', {
+        username,
+        password,
+        redirect: false, // Prevents auto-redirect after sign in
       });
 
-      if (!response.ok) {
+      if (res.error) {
         setError('Invalid login info');
         return;
       }
 
+      // Redirect to the desired page after successful login
       router.replace('/');
     } catch (error) {
       console.error('Error when logging in:', error);
       setError('Error occurred during log in. Please try again.');
     }
 
-    console.log('Login JSX Submitted:', { username, password });
-
+    // Clear input fields after submission
     setUsername('');
     setPassword('');
   };
@@ -83,3 +81,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+

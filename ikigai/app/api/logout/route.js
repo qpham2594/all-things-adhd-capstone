@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/react';
+/*import { getSession } from 'next-auth/react';
 import connectMongoDB from '@/lib/mongodb';
 import User from '@/database/models/user';
 
@@ -20,5 +20,5 @@ export default async function handler(req, res) {
   }
 }
 
-
+*/
 

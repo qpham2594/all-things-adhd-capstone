@@ -1,42 +1,42 @@
-import { NextResponse } from 'next/server';
-import connectMongoDB from '@/lib/mongodb';
-import User from '@/database/models/user';
-import { compare } from 'bcrypt';
-import { createToken } from '@/app/utils/authToken';
-
-
-export const config = {
-  api: {
-    bodyParser: true,
-  },
-};
+import { connectMongoDB } from "@/lib/mongodb";
+import User from "@/database/models/user";
+import bcrypt from "bcrypt";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
+  if (req.method !== "POST") {
+    return NextResponse.status(405).json({ error: "Method Not Allowed" });
+  }
+
   try {
-    const { username, password } = await req.json();
     await connectMongoDB();
+    const { username, password } = await req.json();
 
-    const existingUser = await User.findOne({ username });
-    console.log('Existing user:', existingUser);
+    // Find the user by username
+    const user = await User.findOne({ username });
 
-    if (!existingUser) {
-      return NextResponse.json({ message: 'Invalid username or password' }, { status: 401 });
+    // If user not found, return error
+    if (!user) {
+      return NextResponse.status(401).json({ error: "Invalid username or password" });
     }
 
-    const passwordMatch = await compare(password, existingUser.password);
+    // Compare password with hashed password stored in the database
+    const passwordMatch = await bcrypt.compare(password, user.password);
 
+    // If password doesn't match, return error
     if (!passwordMatch) {
-      return NextResponse.json({ message: 'Invalid username or password' }, { status: 401 });
+      return NextResponse.status(401).json({ error: "Invalid username or password" });
     }
 
-    const token = createToken(existingUser);
-
-    return NextResponse.json({ message: 'Login successful', token }, { status: 200 });
+    // Set a cookie for the authenticated user
+    const cookie = `user_id=${user._id}; Path=/; HttpOnly`;
+    return NextResponse.json({ message: "Login successful" }).cookie(cookie);
   } catch (error) {
-    console.error('Unable to log in:', error);
-    return NextResponse.json({ message: 'Unable to log in' }, { status: 500 });
+    console.error("Error during login:", error);
+    return NextResponse.status(500).json({ error: "Internal Server Error" });
   }
 }
+
 
 /*
 Previously, sign-in from next/auth was used which only handles the client side. That's why when logging in on the

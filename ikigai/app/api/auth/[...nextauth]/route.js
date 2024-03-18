@@ -11,29 +11,24 @@ const authenticationStep = {
     CredentialsProvider({
       name: 'credentials',
       credentials: {},
-
       async authorize(credentials) {
         const { username, password } = credentials;
 
         try {
-          console.log('Attempting authentication for username:', username);
-          const findUser = await User.findOne({ username });
+          await connectMongoDB();
+          const user = await User.findOne({ username });
 
-          if (!findUser) {
-            console.log('User not found for username:', username);
-            return null;
+          if (!user) {
+            return null; // User not found
           }
 
-          const comparePassword = await bcrypt.compare(password, findUser.password);
+          const passwordMatch = await bcrypt.compare(password, user.password);
 
-          if (!comparePassword) {
-            console.log('Password does not match for username:', username);
-            return null;
+          if (!passwordMatch) {
+            return null; // Incorrect password
           }
 
-          console.log('Authentication successful for username:', username);
-
-          return findUser;
+          return user; // Return user data for successful authentication
         } catch (error) {
           console.error('Error during authorization:', error);
           return null;
@@ -42,15 +37,25 @@ const authenticationStep = {
     }),
   ],
   session: {
-    jwt: false,
+    jwt: false, // Disable JWT session tokens
+    // Configure cookie options
+    cookie: {
+      httpOnly: true,
+      name: 'next-auth.session',
+      path: '/',
+      maxAge: 60 * 60 * 24 * 7, // One week
+      secure: process.env.COOKIE_MONSTER_INC === 'production', // Set based on environment variable
+    },
   },
   callbacks: {
     async session(session, user) {
-      session.user = user;
+      if (user) {
+        session.user = { id: user.id }; // Set user ID in session
+      }
       return session;
     },
   },
-  secret: process.env.COOKIE_MONSTER_INC_KEY,
+  secret: process.env.NEXTAUTH_KEY,
   pages: {
     signIn: '/login',
     signOut: '/login',
@@ -61,7 +66,6 @@ const authenticationStep = {
 const handler = NextAuth(authenticationStep);
 
 export { handler as GET, handler as POST };
-
 
 
 /*
