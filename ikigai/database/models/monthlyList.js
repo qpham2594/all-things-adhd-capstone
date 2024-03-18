@@ -1,26 +1,21 @@
-import { Schema, mongoose } from 'mongoose';
+import mongoose from 'mongoose';
+const { Schema } = mongoose;
 
 const monthlyListSchema = new Schema({
-  _id: {
-    type: Schema.Types.ObjectId,
-    default: mongoose.Types.ObjectId,
-  },
-
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-
   date: {
-    type: String,
+    type: Date,
     required: true,
   },
-
   task: {
     type: String,
     required: true,
   },
 });
 
-export default mongoose.models.monthlyList || mongoose.model('monthlyList', monthlyListSchema);
+export default mongoose.models.MonthlyList || mongoose.model('MonthlyList', monthlyListSchema);
+

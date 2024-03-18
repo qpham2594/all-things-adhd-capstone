@@ -1,3 +1,4 @@
+
 const fetchRecipeData = async (APILink) => {
   try {
     const response = await fetch(APILink);
@@ -17,6 +18,8 @@ const fetchRecipeData = async (APILink) => {
 export async function recipesSearch(query) {
   try {
     const apiKey = process.env.API_KEY;
+    console.log(process.env)
+    console.log(process.env.API_KEY)
     const APILink = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}`;
     const data = await fetchRecipeData(APILink);
 

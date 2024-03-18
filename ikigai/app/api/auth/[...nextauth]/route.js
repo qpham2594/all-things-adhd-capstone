@@ -3,11 +3,10 @@ import User from '@/database/models/user';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcrypt';
-import { createToken } from '@/app/utils/authToken';
 
 connectMongoDB();
 
-export const authenticationStep = {
+const authenticationStep = {
   providers: [
     CredentialsProvider({
       name: 'credentials',
@@ -18,7 +17,6 @@ export const authenticationStep = {
 
         try {
           console.log('Attempting authentication for username:', username);
-          await connectMongoDB();
           const findUser = await User.findOne({ username });
 
           if (!findUser) {
@@ -32,16 +30,10 @@ export const authenticationStep = {
             console.log('Password does not match for username:', username);
             return null;
           }
-          
-          console.log('Authentication successful for username:', username);
-         
-          const token = createToken(findUser);
 
-          return {
-            id: findUser.id,
-            token,
-            username: findUser.username,
-          }
+          console.log('Authentication successful for username:', username);
+
+          return findUser;
         } catch (error) {
           console.error('Error during authorization:', error);
           return null;
@@ -50,26 +42,15 @@ export const authenticationStep = {
     }),
   ],
   session: {
-    strategy: 'jwt',
-    jwt: true,
+    jwt: false,
   },
   callbacks: {
-    async jwt(token, user) {
-      if (user) {
-        token.id = user.id; // Set the user's id in the token
-      }
-      console.log('JWT Token:', token);
-      return token;
-    },
-    async session(session, token) {
-      if (token && token.id) {
-        session.user = { id: token.id }; // Set the user's id in the session
-      }
-      console.log('Session:', session);
+    async session(session, user) {
+      session.user = user;
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_KEY,
+  secret: process.env.COOKIE_MONSTER_INC_KEY,
   pages: {
     signIn: '/login',
     signOut: '/login',
@@ -80,6 +61,8 @@ export const authenticationStep = {
 const handler = NextAuth(authenticationStep);
 
 export { handler as GET, handler as POST };
+
+
 
 /*
 Previously, token was mentioned but there was no function to create a token. With this modification, there is a token creation function,
