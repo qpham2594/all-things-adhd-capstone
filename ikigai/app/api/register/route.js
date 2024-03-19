@@ -2,12 +2,6 @@ import { NextResponse } from "next/server";
 import connectMongoDB from "@/lib/mongodb";
 import User from "@/database/models/user";
 
-export const config = {
-  api: {
-    bodyParser: true,
-  },
-};
-
 export async function POST(req) {
   try {
     const { username, password } = await req.json();
