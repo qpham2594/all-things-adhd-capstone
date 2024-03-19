@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
-import styles from '../app/styles/page.module.css'
+import styles from '../app/styles/page.module.css';
 
 export default function MonthlyList({ session }) {
   const [tasks, setTasks] = useState([]);
@@ -19,11 +19,7 @@ export default function MonthlyList({ session }) {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch('/api/todo', {
-        headers: {
-          Authorization: `Bearer ${session?.accessToken}`,
-        },
-      });
+      const response = await fetch('/api/todo');
       const data = await response.json();
       setTasks(data);
     } catch (error) {
@@ -47,25 +43,21 @@ export default function MonthlyList({ session }) {
     }
   }, [completedTasks, puzzlePiecesRevealed, revealedTasks]);
 
-  
   const addTask = async () => {
     try {
       const response = await fetch('/api/todo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.accessToken}`,
         },
         body: JSON.stringify({
           task: newTask,
           date: selectedDate || new Date(),
-          user: session?.user?.id,
         }),
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
         const newTaskData = await response.json();
-
         setTasks((prevTasks) => [...prevTasks, newTaskData]);
         setNewTask('');
         setSelectedDate('');
@@ -85,17 +77,15 @@ export default function MonthlyList({ session }) {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.accessToken}`,
         },
         body: JSON.stringify({
           id: _id,
           task: updatedTask,
           date: new Date(),
-          user: session?.user?.id,
         }),
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
         setTasks((prevTasks) =>
           prevTasks.map((task) =>
             task._id === _id ? { ...task, task: updatedTask } : task
@@ -115,12 +105,11 @@ export default function MonthlyList({ session }) {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${session?.accessToken}`,
         },
         body: JSON.stringify({ id: _id }),
       });
 
-      if (response.status === 200) {
+      if (response.ok) {
         setTasks((prevTasks) => prevTasks.filter((task) => task._id !== _id));
       } else {
         console.error('Error deleting task:', await response.json());

@@ -50,7 +50,7 @@ const authenticationStep = {
   callbacks: {
     async session(session, user) {
       if (user) {
-        session.user = { id: user.id }; // Set user ID in session
+        session.user = { id: user._id }; // Set user ID in session
       }
       return session;
     },
