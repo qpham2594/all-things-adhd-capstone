@@ -55,7 +55,7 @@ const authenticationStep = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_KEY,
+  secret: process.env.SECRET_KEY,
   pages: {
     signIn: '/login',
     signOut: '/login',
