@@ -7,6 +7,7 @@ function RecipeSearchPage() {
   const [maxTime, setMaxTime] = useState('');
   const [searchType, setSearchType] = useState('query');
   const [results, setResults] = useState([]);
+  const router = useRouter();
 
   const handleSearch = async () => {
     try {
@@ -20,6 +21,10 @@ function RecipeSearchPage() {
     } catch (error) {
       console.error('Error searching for recipes:', error);
     }
+  };
+
+  const handleRecipeClick = (id) => {
+    router.push(`/recipe/${id}`);
   };
 
   return (
@@ -45,11 +50,10 @@ function RecipeSearchPage() {
         {results.length > 0 ? (
           <ul>
             {results.map((recipe) => (
-              <li key={recipe.id}>
+              <li key={recipe.id} onClick={() => handleRecipeClick(recipe.id)}>
                 <img src={recipe.image} alt={recipe.title} />
                 <div>
                   <h3>{recipe.title}</h3>
-                  <p>Time: {recipe.readyInMinutes} minutes</p>
                 </div>
               </li>
             ))}
@@ -63,3 +67,4 @@ function RecipeSearchPage() {
 }
 
 export default RecipeSearchPage;
+

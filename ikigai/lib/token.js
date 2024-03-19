@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+/*import jwt from 'jsonwebtoken';
 
 export function createToken(user) {
   const token = jwt.sign({ userId: user._id, username: user.username }, process.env.JWT_SECRET, {
@@ -6,4 +6,4 @@ export function createToken(user) {
   });
 
   return token;
-}
+}*/
