@@ -17,7 +17,7 @@ const userSchema = new Schema({
   monthlyList: [
     {
       type: Schema.Types.ObjectId,
-      ref: 'monthlyList',
+      ref: 'MonthlyList',
     },
   ],
 });

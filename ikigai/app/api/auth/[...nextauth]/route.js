@@ -19,16 +19,22 @@ const authenticationStep = {
           const user = await User.findOne({ username });
 
           if (!user) {
-            return null; // User not found
+            console.log('User not found');
+            return null;
           }
 
           const passwordMatch = await bcrypt.compare(password, user.password);
 
           if (!passwordMatch) {
-            return null; // Incorrect password
+            console.log('Incorrect password');
+            return null;
           }
 
-          return user; // Return user data for successful authentication
+          console.log('User authenticated:', user);
+          return {
+            _id: user._id,
+            username: user.username,
+          };
         } catch (error) {
           console.error('Error during authorization:', error);
           return null;
@@ -50,8 +56,10 @@ const authenticationStep = {
   callbacks: {
     async session(session, user) {
       if (user) {
-        session.user = { id: user._id }; // Set user ID in session
+        console.log('Attaching user to session:', user);
+        session.user = user;
       }
+      console.log('Updated session:', session);
       return session;
     },
   },
@@ -66,6 +74,7 @@ const authenticationStep = {
 const handler = NextAuth(authenticationStep);
 
 export { handler as GET, handler as POST };
+
 
 
 /*

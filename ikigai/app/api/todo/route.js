@@ -30,32 +30,41 @@ export async function POST(req) {
   
   export async function PUT(req) {
     try {
-      const { _id, task } = await req.json();
+      const { id, task } = await req.json();
       await connectMongoDB();
       
       const updatedTask = await monthlyList.findByIdAndUpdate(
-        _id,
+        id,
         { task },
         { new: true }
       );
   
-      return NextResponse.json(updatedTask, {message: "Task is updated"}, { status: 200 });
+      if (!updatedTask) {
+        return NextResponse.status(404).json({ error: "Task not found" });
+      }
+  
+      return NextResponse.json({ message: "Task updated successfully", updatedTask });
     } catch (error) {
       console.error("Error updating task:", error);
-      return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+      return NextResponse.status(500).json({ error: "Internal Server Error" });
     }
   }
   
   export async function DELETE(req) {
     try {
-      const { _id } = await req.json();
+      const { id } = await req.json();
       await connectMongoDB();
   
-      await monthlyList.findByIdAndDelete(_id);
+      const deletedTask = await monthlyList.findByIdAndDelete(id);
   
-      return NextResponse.json({ message: "Task deleted successfully" }, { status: 200 });
+      if (!deletedTask) {
+        return NextResponse.status(404).json({ error: "Task not found" });
+      }
+  
+      return NextResponse.json({ message: "Task deleted successfully" });
     } catch (error) {
       console.error("Error deleting task:", error);
-      return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+      return NextResponse.status(500).json({ error: "Internal Server Error" });
     }
   }
+  

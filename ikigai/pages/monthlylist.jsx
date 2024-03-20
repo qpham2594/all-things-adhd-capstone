@@ -45,20 +45,23 @@ export default function MonthlyList({ session }) {
 
   const addTask = async () => {
     try {
+      const newTaskData = {
+        task: newTask,
+        date: selectedDate || new Date(),
+      };
+  
+      // Update the UI immediately by appending the new task to the existing tasks
+      setTasks((prevTasks) => [...prevTasks, newTaskData]);
+  
       const response = await fetch('/api/todo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          task: newTask,
-          date: selectedDate || new Date(),
-        }),
+        body: JSON.stringify(newTaskData),
       });
-
+  
       if (response.ok) {
-        const newTaskData = await response.json();
-        setTasks((prevTasks) => [...prevTasks, newTaskData]);
         setNewTask('');
         setSelectedDate('');
       } else {
@@ -68,7 +71,6 @@ export default function MonthlyList({ session }) {
       console.error('Error adding task:', error);
     }
   };
-
   const updateTask = async (_id, updatedTask) => {
     try {
       updatedTask = updatedTask || '';
