@@ -12,11 +12,14 @@ const authenticationStep = {
       name: 'credentials',
       credentials: {},
       async authorize(credentials) {
+        console.log('Received credentials:', credentials); // Log the received credentials object
         const { username, password } = credentials;
 
         try {
           await connectMongoDB();
           const user = await User.findOne({ username });
+          console.log('User Found', user)
+          
 
           if (!user) {
             console.log('User not found');
@@ -32,8 +35,7 @@ const authenticationStep = {
 
           console.log('User authenticated:', user);
           return {
-            _id: user._id,
-            username: user.username,
+            name: user._id, // Add a name property and attached the user id or username to the session, since the session requires name
           };
         } catch (error) {
           console.error('Error during authorization:', error);
@@ -55,9 +57,10 @@ const authenticationStep = {
   },
   callbacks: {
     async session(session, user) {
+      console.log('User object:', user); // Log the user object
       if (user) {
         console.log('Attaching user to session:', user);
-        session.user = user;
+         session.user = { id: user.name };
       }
       console.log('Updated session:', session);
       return session;
