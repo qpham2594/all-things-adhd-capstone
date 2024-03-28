@@ -1,0 +1,10 @@
+:root {
+  --primary-color: rgba(12, 35, 61, 0.5); /* Dark blue background color with full opacity */ /* Blue */
+  --secondary-color: #0c233d; /* Gray */
+  --accent-color: #ffc107; /* Yellow */
+}
+
+body {
+    background-color: var(--primary-color); /* Set the background color of the entire page */
+    margin: 0;
+  }

@@ -2,6 +2,7 @@
 
 import Header from "@/components/header";
 import { SessionProvider } from "next-auth/react";
+import '@/styles/global.css'
 
 export default function MyApp({ Component, pageProps }) {
   return (

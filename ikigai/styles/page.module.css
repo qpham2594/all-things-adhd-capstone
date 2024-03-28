@@ -1,0 +1,107 @@
+#puzzleBoard {
+    width: 500px;
+    height:500px;
+    border: 2px solid yellow;
+    
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+#cowImages img {
+    width: 222px;
+    height: 95px;
+    border: 1px solid green;
+    margin: 0 auto;
+  }
+
+  .heroImage {
+    background-color: yellow;
+    position: relative;
+    height: 500px;
+    background-image: url('/heroImage.jpg');
+    background-size: cover;
+    background-position: center;
+    margin-top: 20px;
+    overflow: hidden;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.4); /* Overlay */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  .buttons button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  .pageWrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 10px;
+  }
+
+  .formContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  
+  .formBox {
+    background-color: #0c233d; 
+    padding: 50px; 
+    border-radius: 8px; 
+  }
+  
+  .formText {
+    color: #ffffff;
+    font-size: 25px;
+    margin-right: 5px;
+  }
+  
+  .createAccountButton {
+    margin: 30px 55px;
+    background-color: rgba(237,199,82,1); 
+    color: #000000; 
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: large;
+    display: flex;
+  }
+
+  .inputBox{
+    width: 50%;
+    padding: 6px;
+    margin-top: 14px;
+  }
+
+/* Adjustments for smaller screens */
+@media (max-width: 1020px) {
+  .heroImage {
+      height: 400px; 
+  }
+
+  .overlay {
+      width: 100%; 
+      height: 100%;
+  }
+}

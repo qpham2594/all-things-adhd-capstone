@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {useRouter} from 'next/router';
+import styles from '@/styles/page.module.css';
 
 const createAccountForm = () => {
   const [username, setUsername] = useState('');
@@ -60,27 +61,29 @@ const createAccountForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
+    <div className={styles.formContainer}>
+      <form onSubmit={handleSubmit} className={styles.formBox}>
         <div>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username" className={styles.formText}>Username:</label>
           <input
             type="text"
             id="username"
             value={username}
             onChange={handleUsernameChange}
+            className={styles.inputBox}
           />
         </div>
         <div>
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password" className={styles.formText}>Password:</label>
           <input
             type="password"
             id="password"
             value={password}
             onChange={handlePasswordChange}
+            className={styles.inputBox}
           />
         </div>
-        <button type="submit">Create an Account</button>
+        <button type="submit" className={styles.createAccountButton}>Create an Account</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
