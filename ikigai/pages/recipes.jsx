@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { recipesSearch, recipesByTime } from '../app/api/recipes/route';
+import styles from '@/styles/page.module.css';
 
 function RecipeSearchPage() {
   const [query, setQuery] = useState('');
@@ -29,29 +30,32 @@ function RecipeSearchPage() {
 
   return (
     <div>
-      <h1>Recipe Search</h1>
-      <div>
-        <label>
+      <h1 className={styles.h1}>Recipe Search</h1>
+      <div className={styles.recipeSearchContainer}>
+        <label className={styles.searchText}>
           Search by:
-          <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+          <select value={searchType} onChange={(e) => setSearchType(e.target.value)} className={styles.searchOption}>
             <option value="query">Ingredients</option>
             <option value="time">Max Time</option>
           </select>
         </label>
+        <div className={styles.searchInputContainer}>
         {searchType === 'query' ? (
-          <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+          <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} className={styles.searchInput} />
         ) : (
-          <input type="number" value={maxTime} onChange={(e) => setMaxTime(e.target.value)} placeholder="Max Time (minutes)" />
+          <input type="number" value={maxTime} onChange={(e) => setMaxTime(e.target.value)} placeholder="Max Time (minutes)" className={styles.searchInput} />
         )}
-        <button onClick={handleSearch}>Search</button>
+        <button onClick={handleSearch} className={styles.searchButton}>Search</button>
+        </div>
+        
       </div>
       <div>
-        <h2>Results</h2>
+        <h2 className={styles.h1}>Results</h2>
         {results.length > 0 ? (
-          <ul>
+          <ul className={styles.recipeResultContainer} >
             {results.map((recipe) => (
-              <li key={recipe.id} onClick={() => handleRecipeClick(recipe.id)}>
-                <img src={recipe.image} alt={recipe.title} />
+              <li key={recipe.id} onClick={() => handleRecipeClick(recipe.id)} className={styles.recipeImageText}>
+                <img src={recipe.image} alt={recipe.title}/>
                 <div>
                   <h3>{recipe.title}</h3>
                 </div>
@@ -59,7 +63,7 @@ function RecipeSearchPage() {
             ))}
           </ul>
         ) : (
-          <p>No results found</p>
+          <p className={styles.logoutText}>No results found</p>
         )}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
+import styles from '@/styles/page.module.css';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -52,27 +53,29 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
+    <div className={styles.formContainer}>
+      <form onSubmit={handleSubmit} className={styles.formBox}>
+        <div className={styles.textWrapper}>
+          <label htmlFor="username" className={styles.formText}>Username:</label>
           <input
             type="text"
             id="username"
             value={username}
             onChange={handleUsernameChange}
+            className={styles.inputBox}
           />
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className={styles.textWrapper}>
+          <label htmlFor="password" className={styles.formText}>Password:</label>
           <input
             type="password"
             id="password"
             value={password}
             onChange={handlePasswordChange}
+            className={styles.inputBox}
           />
         </div>
-        <button type="submit">Log In</button>
+        <button type="submit" className={styles.loginButton}>Log In</button>
       </form>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>

@@ -1,5 +1,6 @@
 import { signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import styles from '@/styles/page.module.css';
 
 const LogoutPage = () => {
   const router = useRouter();
@@ -11,9 +12,11 @@ const LogoutPage = () => {
   };
 
   return (
-    <div>
-      <h1>Logout</h1>
-      <button onClick={handleLogout}>Logout</button>
+    <div className={styles.logoutContainer}>
+      <h1 className={styles.h1}>Logout</h1>
+      <p className={styles.logoutText}> Make you sure log out! Once you log out, it will notify you that you have logged out. <br></br>
+      I hope you were productive today!</p>
+      <button onClick={handleLogout} className={styles.logoutButton}>Logout</button>
     </div>
   );
 };

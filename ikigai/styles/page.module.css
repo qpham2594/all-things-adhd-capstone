@@ -1,19 +1,205 @@
-#puzzleBoard {
-    width: 500px;
-    height:500px;
+/* Create Account and Log In  */
+
+.formContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.formBox {
+  background-color: #0c233d; 
+  width: 400px;
+  height: 250px;
+  border-radius: 8px; 
+  padding: 40px 20px;
+  justify-content: center;
+}
+
+.textWrapper {
+  margin: 20px 30px 0 50px;
+}
+
+.formText {
+  color: #ffffff;
+  font-size: 25px;
+  margin-right: 5px;
+}
+
+.inputBox{
+  width: 50%;
+  padding: 6px;
+  margin-top: 14px;
+}
+
+.createAccountButton {
+  margin: 50px 80px 60px;
+  background-color: rgba(237,199,82,1); 
+  color: #000000; 
+  border: none;
+  padding: 10px 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+  display: flex;
+}
+
+.loginButton{
+  background-color: rgba(237,199,82,1); 
+  color: #000000; 
+  border: none;
+  padding: 10px 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: large;
+  display: flex;
+  margin: 50px 130px;
+
+}
+
+/* Task Input */
+.h1{
+  font-size: 44px;
+  justify-content: center;
+  text-align: center;
+}
+
+.taskContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 30px 150px;
+  padding: 20px;
+  background-color: var(--accent-color);
+  border-radius: 8px;
+}
+
+.taskTextWrapper {
+  text-align:left;
+  margin: 10px 70px 30px 90px;
+}
+
+.taskText {
+  font-size: 22px;
+  font-weight: 200;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+
+.taskInput{
+  width: 30%;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.addTaskButton{
+  padding: 12px 35px;
+  font-size: larger;
+  background-color: var(--secondary-color);
+  margin-top: 10px;
+}
+
+.taskListContainer {
+  display: block;
+  flex-direction: column; 
+
+}
+
+.taskList{
+  font-size: 16px;
+}
+
+.puzzleBoard {
+    width: 990px;
+    height:990px;
     border: 2px solid yellow;
     
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
   }
-  
-#cowImages img {
-    width: 222px;
-    height: 95px;
-    border: 1px solid green;
-    margin: 0 auto;
+
+.cowContainer {
+  display: flex;
+  justify-content: center;
+  margin: 8px;
+
+}
+.cowImages img {
+  width: 480px; 
+  height: 200px; 
+  border: 1px solid yellow;
+  margin: 2px 2px;
   }
+
+/* Recipe Page */
+
+.recipeSearchContainer{
+  background-color: #0c233d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  margin: 10px 25%;
+}
+
+.searchText {
+  font-size: 24px;
+  color: white;
+  display:flexbox;
+  
+}
+
+.searchInputContainer {
+  width: 50%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.searchButton {
+  padding: 12px 35px;
+  font-size: larger;
+  background-color: var(--secondary-color);
+  margin-top: 15px;
+}
+
+.searchInput {
+  padding: 15px;
+  font-size: 16px;
+}
+
+.searchOption{
+  padding: 10px;
+  margin-left: 15px;
+  font-size: large;
+}
+
+.recipeResultContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Horizontally center the items */
+  list-style-type: none;
+  background-color: var(--accent-color);
+}
+
+.recipeImageText {
+  margin: 0 10px; 
+  text-align: center;
+}
+
+.recipeImageText img {
+  display: block; /* Ensure the image is centered properly */
+  margin: 20px auto; /* Horizontally center the image */
+}
+
+
 
   .heroImage {
     background-color: yellow;
@@ -58,44 +244,191 @@
     padding: 0 10px;
   }
 
-  .formContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-  }
-  
-  .formBox {
-    background-color: #0c233d; 
-    padding: 50px; 
-    border-radius: 8px; 
-  }
-  
-  .formText {
-    color: #ffffff;
-    font-size: 25px;
-    margin-right: 5px;
-  }
-  
-  .createAccountButton {
-    margin: 30px 55px;
-    background-color: rgba(237,199,82,1); 
-    color: #000000; 
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: large;
-    display: flex;
+
+
+
+
+
+
+
+  .logoutContainer{
+    text-align: center;
+    background-color: var(--secondary-color);
+    margin: 10%;
+    padding: 5%;
+
   }
 
-  .inputBox{
-    width: 50%;
-    padding: 6px;
-    margin-top: 14px;
+  .logoutButton{
+    padding: 12px 35px;
+    font-size: 28px;
+    background-color: var(--accent-color);
+    margin-top: 10px;
+  }
+
+  .logoutText{
+    text-align: center;
+    font-size: 26px;
   }
 
 /* Adjustments for smaller screens */
 @media (max-width: 1020px) {
+
+/* Create Account Responsive */
+.formContainer {
+  margin-top: 50px;
+  justify-content: center;
+}
+
+.formBox {
+  background-color: #0c233d; 
+  width: 50%;
+  height: 20%;
+  border-radius: 8px;
+  justify-content: center;
+}
+
+.textWrapper {
+  margin: 10px;
+}
+
+.formText {
+  font-size: 20px;
+  margin: 5px;
+}
+
+.createAccountButton {
+  margin: 15px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.inputBox{
+  width: 80%;
+  padding: 4px;
+  margin-top: 14px;
+}
+
+/* Log In */
+.loginButton{
+  padding: 10px;
+  font-size: 14px;
+  margin: 15px; 
+}
+
+/* Task Input */
+.h1{
+  font-size: 36px;
+}
+
+.taskContainer {
+  display:flex;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.taskTextWrapper {
+  text-align:left;
+  margin: 10px 70px 30px 90px;
+}
+
+.taskText {
+  font-size: 22px;
+  font-weight: 200;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+
+.taskInput{
+  width: 30%;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.addTaskButton{
+  padding: 12px 35px;
+  font-size: larger;
+  background-color: var(--secondary-color);
+  margin-top: 10px;
+}
+
+.taskListContainer {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  margin: 10px;
+  padding: 5px;
+}
+
+.taskList {
+  list-style-type: none;
+  padding: 0; 
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+
+.puzzleBoard {
+  max-width: 90%; 
+  height: auto; 
+}
+
+.cowImages img {
+  width: 48%;
+  height: auto;
+  border: 1px solid yellow;
+  margin: 2px;
+}
+
+/* Recipe Page */
+.recipeSearchContainer{
+  padding: 20px;
+  margin: 10%
+}
+
+.searchText {
+  font-size: 18px;  
+}
+
+.searchInputContainer {
+  margin: 20px auto;
+}
+
+.searchButton {
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.searchInput {
+  padding: 5px;
+  font-size: 14px;
+}
+
+.searchOption{
+  padding: 5px;
+  margin-left: 15px;
+  font-size: medium;
+}
+
+.recipeResultContainer {
+  list-style-type: none;
+}
+
+.recipeImageText {
+  margin: 0 10px; 
+  text-align: center;
+}
+
+.recipeImageText img {
+  display: block; 
+  margin: 10px auto; 
+}
+
+
   .heroImage {
       height: 400px; 
   }

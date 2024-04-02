@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
-import styles from '../app/styles/page.module.css';
+import styles from '@/styles/page.module.css';
 
 export default function MonthlyList({ session }) {
   const [tasks, setTasks] = useState([]);
@@ -128,11 +128,37 @@ export default function MonthlyList({ session }) {
   };
 
   return (
-    <div>
-      <h1>Monthly List</h1>
+    <div className={styles.todoAddBox}>
+      <h1 className={styles.h1}> Monthly List</h1>
       {session ? (
         <>
-          <ul>
+          <div className={styles.taskContainer}>
+            <div className={styles.taskTextWrapper}>
+              <p className={styles.taskText}>
+                Got things to do? Having a hard time with administrative tasks? <br></br>
+                Jot them down, accomplish them, and get a puzzle piece in return for each completed task!
+              </p>
+            </div>
+            <div className={styles.inputWrapper}>
+              <input
+                type="text"
+                value={newTask}
+                onChange={(e) => setNewTask(e.target.value)}
+                placeholder="Enter new task"
+                className={styles.taskInput}
+              />
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                placeholder="Select date"
+                className={styles.taskInput}
+              />
+              <button onClick={addTask} className={styles.addTaskButton}>Add Task</button>
+            </div>
+          </div>    
+          <div className={styles.taskListContainer}>
+          <ul className={styles.taskList}>
             {tasks.map((task, index) => (
               <li key={task._id}>
                 <span
@@ -148,35 +174,22 @@ export default function MonthlyList({ session }) {
               </li>
             ))}
           </ul>
-          <div>
-            <input
-              type="text"
-              value={newTask}
-              onChange={(e) => setNewTask(e.target.value)}
-              placeholder="Enter new task"
-            />
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              placeholder="Select date"
-            />
-            <button onClick={addTask}>Add Task</button>
-          </div>
+          </div>  
           {revealPuzzle && (
             <div>
-              <h1>Reveal the puzzle by finishing your monthly to-do list!</h1>
-              <div id={styles.puzzleBoard}>
-                <div id={styles.cowImages}>
-                {tasks.slice(0, puzzlePiecesRevealed).map((task, index) => (
-                <img
-                key={index}
-                src={`/images/img${index + 1}.jpg`}
-                alt={`img ${index + 1}`}
-              />
-              
-              ))}
-                </div>
+              <h1 className={styles.h1}>Reveal the puzzle by finishing your monthly to-do list!</h1>
+              <div className={styles.puzzleBoard}>
+                <div className={styles.cowContainer}>
+                  <div className={styles.cowImages}>
+                    {tasks.slice(0, puzzlePiecesRevealed).map((task, index) => (
+                      <img
+                        key={index}
+                        src={`/images/img${index + 1}.jpg`}
+                        alt={`img ${index + 1}`}
+                      />             
+                    ))}
+                  </div>
+                  </div>                
               </div>
             </div>
           )}

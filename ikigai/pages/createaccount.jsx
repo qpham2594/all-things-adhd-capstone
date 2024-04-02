@@ -63,7 +63,7 @@ const createAccountForm = () => {
   return (
     <div className={styles.formContainer}>
       <form onSubmit={handleSubmit} className={styles.formBox}>
-        <div>
+        <div className={styles.textWrapper}>
           <label htmlFor="username" className={styles.formText}>Username:</label>
           <input
             type="text"
@@ -73,7 +73,7 @@ const createAccountForm = () => {
             className={styles.inputBox}
           />
         </div>
-        <div>
+        <div className={styles.textWrapper}>
           <label htmlFor="password" className={styles.formText}>Password:</label>
           <input
             type="password"
