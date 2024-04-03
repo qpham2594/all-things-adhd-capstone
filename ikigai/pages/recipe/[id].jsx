@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { recipesByID } from '@/app/api/recipes/route';
+import styles from '@/styles/page.module.css';
 
 
 export async function getServerSideProps({ params: { id } }) {
@@ -56,23 +57,26 @@ function RecipeInfo({
 }) {
   return (
     <main>
-      <h1>{title}</h1>
-      <img src={image} alt={title} width={556} height={370} />
+      <h1 className={styles.h1}>{title}</h1>
+      <img src={image} alt={title} width={556} height={370} className={styles.recipeImage} />
       <div>
-        <p>Time to Make: {readyInMinutes}min</p>
+        <p className={styles.h1}>Time to Make: {readyInMinutes}min</p>
       </div>
-      <div>
-        <h2>Description</h2>
+      <div className={styles.recipeInfoContainer}>
+        <h2 className={styles.h2}>Description</h2>
         <div dangerouslySetInnerHTML={{__html: summary.replace(/(href=")[\w-/:\.]+-([\d]+)/g, "$1" + '/recipe/' + "$2")}}></div>
       </div>
-      <div>
-        <h2>Ingredients</h2>
+      <div className={styles.recipeInfoContainer}>
+        <h2 className={styles.h2}>Ingredients</h2>
         <ul>
           {extendedIngredients.map((ing, i) => <li key={i}>{ing.original}</li>)}
         </ul>
       </div>
-      <h2>Steps</h2>
-      <div dangerouslySetInnerHTML={{__html: instructions}}></div>
+      <div className={styles.recipeInfoContainer}>
+        <h2 className={styles.h2}>Steps</h2>
+        <div dangerouslySetInnerHTML={{__html: instructions}}></div>
+      </div>
+      
     </main>
   );
 }
