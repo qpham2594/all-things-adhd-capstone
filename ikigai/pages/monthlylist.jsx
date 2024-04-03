@@ -167,10 +167,10 @@ export default function MonthlyList({ session }) {
                 >
                   {task.task}
                 </span>{' '}
-                <button onClick={() => updateTask(task._id, prompt('Enter updated task:'))}>
+                <button onClick={() => updateTask(task._id, prompt('Enter updated task:'))} className={styles.todoButton}>
                   Update
                 </button>{' '}
-                <button onClick={() => deleteTask(task._id)}>Delete</button>
+                <button onClick={() => deleteTask(task._id)} className={styles.todoButton}>Delete</button>
               </li>
             ))}
           </ul>
