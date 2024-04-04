@@ -1,10 +1,10 @@
 :root {
-  --primary-color: rgb(157,203,203); /* Dark blue background color with full opacity */ /* Blue */
-  --secondary-color: rgb(68,159,202); /* Gray */
-  --accent-color: #ffc107; /* Yellow */
+  --primary-color: rgb(157,203,203,0.5);
+  --secondary-color: rgb(68,159,202);
+  --accent-color: #ffc107; 
 }
 
 body {
-    background-color: var(--primary-color); /* Set the background color of the entire page */
+    background-color: var(--primary-color); 
     margin: 0;
   }
