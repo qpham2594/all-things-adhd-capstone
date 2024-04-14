@@ -52,14 +52,14 @@
     left: 15%;
     top: 10%;
     z-index: 1;
-    background-color: var(--accent-color);
+    background-color: #ffc107;
   }
 
   .links.open a {
     margin: 5px;
     padding: 8px;
     border: 1px solid black;
-    background-color:var(--secondary-color);
+    background-color:rgb(68,159,202);
     color: whitesmoke;
     font-size: 18px;
     font-weight: 100;

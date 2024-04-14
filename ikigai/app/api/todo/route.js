@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { user, date, task } = await req.json();
-    console.log('Received data:', { user, date, task });
+    const { date, task } = await req.json();
+    console.log('Received data:', { date, task });
     await connectMongoDB();
-    await monthlyList.create({ user, date, task });
+    await monthlyList.create({ date, task });
 
     return NextResponse.json({ message: "Task is added" }, { status: 201 });
   } catch (error) {
@@ -30,9 +30,9 @@ export async function POST(req) {
   
   export async function PUT(req) {
     try {
-      const { id, task } = await req.json();
+      const { id, task } = await req.json(); 
       await connectMongoDB();
-      
+  
       const updatedTask = await monthlyList.findByIdAndUpdate(
         id,
         { task },
@@ -49,6 +49,7 @@ export async function POST(req) {
       return NextResponse.status(500).json({ error: "Internal Server Error" });
     }
   }
+  
   
   export async function DELETE(req) {
     try {
