@@ -77,10 +77,3 @@ const authenticationStep = {
 const handler = NextAuth(authenticationStep);
 
 export { handler as GET, handler as POST };
-
-
-
-/*
-Previously, token was mentioned but there was no function to create a token. With this modification, there is a token creation function,
-and then is being implemented into the authentication process here, which then gets implemented in the login route via back end. 
-*/

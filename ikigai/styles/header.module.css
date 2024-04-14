@@ -23,8 +23,10 @@
 
   .links a {
     text-decoration: none; 
-    color: #333; 
+    color: orangered;
+    font-weight: bolder;
     margin-right: 10px; 
+    margin-top: 10px;
   }
   
   
@@ -41,7 +43,7 @@
   }
   
 /* Media query for mobile devices */
-@media (max-width: 1020px) {
+@media (max-width: 1200px) {
   .links {
     display: none;
   }

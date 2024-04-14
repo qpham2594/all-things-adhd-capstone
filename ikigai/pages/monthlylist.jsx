@@ -49,8 +49,7 @@ export default function MonthlyList({ session }) {
         task: newTask,
         date: selectedDate || new Date(),
       };
-  
-      // Update the UI immediately by appending the new task to the existing tasks
+
       setTasks((prevTasks) => [...prevTasks, newTaskData]);
   
       const response = await fetch('/api/todo', {

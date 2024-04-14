@@ -12,6 +12,7 @@
   border-radius: 8px; 
   padding: 40px 20px;
   justify-content: center;
+  margin-top: 10%;
 }
 
 .textWrapper {
@@ -317,7 +318,7 @@
 
 
 /* Adjustments for smaller screens */
-@media (max-width: 1020px) {
+@media (max-width: 1200px) {
 
 /* Create Account Responsive */
 .formContainer {
@@ -429,7 +430,7 @@
 
 /* Recipe Page */
 .recipeSearchContainer{
-  padding: 20px;
+  padding: 10px;
   margin: 10%
 }
 
@@ -460,7 +461,7 @@
 
 .recipeResultContainer {
   list-style-type: none;
-  margin: 4% 5%; 
+  margin: 4% 0%; 
   border-radius: 6px;
   padding-top: 4%;
   padding-right: 4%;
@@ -468,13 +469,17 @@
 }
 
 .recipeImageText {
-  margin: 10px; 
+  margin: 12px; 
   text-align: center;
-  font-size: 16px;
+  font-size: 12px;
 }
 
 .recipeImageText img {
   display: block; 
+  width: 100px;
+  height: 90px;
+  margin-left: 10px;
+  border-radius: 6px;
    
 }
 
