@@ -63,7 +63,7 @@ const createAccountForm = () => {
 
   return (
     <div className={styles.formContainer}>
-          <Head>
+          <Head lang="en">
             <title>Create Account with Ikigai</title>
             <meta name="description" content="Don't have an account? Sign up now. It's free and you can get access to your to-do list with a puzzle reward!" />
             <html lang="en" />

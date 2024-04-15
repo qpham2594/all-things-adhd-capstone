@@ -8,7 +8,7 @@ import Head from 'next/head';
 
 export default function RootLayout({ children }) {
  return (
-    <html>
+    <html lang="en">
         <Head>
         <title>Ikigai:Your to-do app</title>
         <meta name="description" content="Try Ikigai, it's a to-do app that can help you with your to-do list. You can even get a puzzle reward for it!" />

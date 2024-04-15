@@ -111,6 +111,7 @@
 
 .taskList{
   font-size: 24px;
+  font-weight: bolder;
   list-style-type: none;
   color: black;
   padding: 10px;
@@ -259,7 +260,7 @@
 .heroImage {
   background-color: yellow;
   position: relative;
-  height: 800px;
+  height: 500px;
   background-image: url('/heroImage.jpg');
   background-size: cover;
   background-position: center;
@@ -311,19 +312,34 @@
 
 .logoutButton{
   padding: 12px 35px;
-  font-size: 28px;
+  font-size: 20px;
   background-color: var(--accent-color);
   margin-top: 10px;
 }
 
 .logoutText{
   text-align: center;
-  font-size: 26px;
+  font-size: 20px;
 }
 
+/*-----------------------------------------*/
 
 /* Adjustments for smaller screens */
 @media (max-width: 1200px) {
+
+.heroImage {
+  height: 300px;
+  margin-top: 5%;
+}
+    
+.buttons {
+  margin-top: 10px;
+}
+    
+.buttons button {
+  padding: 5px 10px;
+  font-size: 14px;
+}
 
 /* Create Account Responsive */
 .formContainer {
@@ -344,14 +360,14 @@
 }
 
 .formText {
-  font-size: 20px;
+  font-size: 16px;
   margin: 5px;
 }
 
 .createAccountButton {
   margin: 15px;
   padding: 5px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .inputBox{
@@ -380,11 +396,11 @@
 
 .taskTextWrapper {
   text-align:left;
-  margin: 10px 70px 30px 90px;
+  margin: 0;
 }
 
 .taskText {
-  font-size: 22px;
+  font-size: 14px;
   font-weight: 200;
 }
 
@@ -402,7 +418,7 @@
 
 .addTaskButton{
   padding: 12px 35px;
-  font-size: larger;
+  font-size: 12px;
   background-color: var(--secondary-color);
   margin-top: 10px;
 }
@@ -414,11 +430,20 @@
   padding: 5px;
 }
 
+.todoButton{
+  border-radius: 6px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid white;
+  font-size: 12px;
+}
+
 .taskList {
   list-style-type: none;
   padding: 0; 
   margin-bottom: 5px;
   font-size: 16px;
+  font-weight: bolder;
 }
 
 .puzzleBoard {
@@ -498,4 +523,15 @@
   height: 100%;
 }
 
+}
+
+/* Logout */
+
+.logoutButton{
+  padding: 10px 14px;
+  font-size: 16px;
+}
+
+.logoutText{
+  font-size: 16px;
 }

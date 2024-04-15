@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import styles from '@/styles/page.module.css';
+import Head from 'next/head';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -54,6 +55,11 @@ const LoginForm = () => {
 
   return (
     <div className={styles.formContainer}>
+      <Head>
+        <title>Log in with Ikigai</title>
+        <meta name="description" content="Make sure you sign in with Ikigai so you can work on your to-do list. If not, feel free to use the search recipes feature!" />
+        <html lang="en" />
+      </Head>
       <form onSubmit={handleSubmit} className={styles.formBox}>
         <div className={styles.textWrapper}>
           <label htmlFor="username" className={styles.formText}>Username:</label>

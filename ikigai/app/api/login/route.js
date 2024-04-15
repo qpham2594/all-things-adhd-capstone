@@ -36,11 +36,3 @@ export async function POST(req) {
     return NextResponse.status(500).json({ error: "Internal Server Error" });
   }
 }
-
-
-/*
-Previously, sign-in from next/auth was used which only handles the client side. That's why when logging in on the
-front-end, it logs the session, but the username comes back as {}. With this modification, a function to create a token
-was created in lib/token, so that it can look for the existing username and password, create a token with it. This allows
-a successful login on the backend with a token. 
-*/
