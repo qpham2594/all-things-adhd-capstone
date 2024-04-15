@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { recipesSearch, recipesByTime } from '../app/api/recipes/route';
 import styles from '@/styles/page.module.css';
+import Head from 'next/head';
 
 function RecipeSearchPage() {
   const [query, setQuery] = useState('');
@@ -30,32 +31,70 @@ function RecipeSearchPage() {
 
   return (
     <div>
+       <Head>
+        <title>Search Recipes - Find Delicious Recipes by Ingredients or Time</title>
+        <meta name="description" content="Looking for new recipes? Search recipes by ingredients or cooking time to discover delicious meals. Start cooking now!" />
+        <html lang="en" />
+      </Head>
       <h1 className={styles.h1}>Recipe Search</h1>
       <div className={styles.recipeSearchContainer}>
         <label className={styles.searchText}>
           Search by:
-          <select value={searchType} onChange={(e) => setSearchType(e.target.value)} className={styles.searchOption}>
+          <select
+            value={searchType}
+            onChange={(e) => setSearchType(e.target.value)}
+            className={styles.searchOption}
+            aria-label="Search Type"
+          >
             <option value="query">Ingredients</option>
             <option value="time">Max Time</option>
           </select>
         </label>
         <div className={styles.searchInputContainer}>
-        {searchType === 'query' ? (
-          <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} className={styles.searchInput} />
-        ) : (
-          <input type="number" value={maxTime} onChange={(e) => setMaxTime(e.target.value)} placeholder="Max Time (minutes)" className={styles.searchInput} />
-        )}
-        <button onClick={handleSearch} className={styles.searchButton}>Search</button>
+          {searchType === 'query' ? (
+            <>
+              <label htmlFor="query" className={styles.label}>
+                Ingredients:
+              </label>
+              <input
+                id="query"
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className={styles.searchInput}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor="maxTime" className={styles.label}>
+                Max Time (minutes):
+              </label>
+              <input
+                id="maxTime"
+                type="number"
+                value={maxTime}
+                onChange={(e) => setMaxTime(e.target.value)}
+                placeholder="Max Time (minutes)"
+                className={styles.searchInput}
+              />
+            </>
+          )}
+          <button onClick={handleSearch} className={styles.searchButton}>
+            Search
+          </button>
         </div>
-        
       </div>
       <div>
         <h2 className={styles.h1}>Results</h2>
         {results.length > 0 ? (
-          <ul className={styles.recipeResultContainer} >
+          <ul className={styles.recipeResultContainer}>
             {results.map((recipe) => (
-              <li key={recipe.id} onClick={() => handleRecipeClick(recipe.id)} className={styles.recipeImageText}>
-                <img src={recipe.image} alt={recipe.title}/>
+              <li
+                key={recipe.id}
+                onClick={() => handleRecipeClick(recipe.id)}
+                className={styles.recipeImageText}
+              >
+                <img src={recipe.image} alt={recipe.title} />
                 <div>
                   <h3>{recipe.title}</h3>
                 </div>

@@ -172,6 +172,11 @@
   text-align: center;
 }
 
+.label{
+  color: white;
+  font-size: larger;
+}
+
 .searchButton {
   padding: 12px 35px;
   font-size: larger;
@@ -254,11 +259,11 @@
 .heroImage {
   background-color: yellow;
   position: relative;
-  height: 600px;
+  height: 800px;
   background-image: url('/heroImage.jpg');
   background-size: cover;
   background-position: center;
-  margin-top: 15%;
+  margin-top: 10%;
   overflow: hidden;
 }
   
