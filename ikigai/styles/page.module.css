@@ -260,11 +260,12 @@
 .heroImage {
   background-color: yellow;
   position: relative;
-  height: 500px;
+  width: 500px;
+  height: auto;
   background-image: url('/heroImage.jpg');
   background-size: cover;
   background-position: center;
-  margin-top: 10%;
+  margin-top: 15%;
   overflow: hidden;
 }
   
