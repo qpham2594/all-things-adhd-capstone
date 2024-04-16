@@ -71,6 +71,7 @@
   padding: 20px;
   background-color: var(--accent-color);
   border-radius: 8px;
+  border: solid 2px whitesmoke;
 }
 
 .taskTextWrapper {
@@ -156,6 +157,8 @@
   text-align: center;
   padding: 30px;
   margin: 10px 25%;
+  border-radius: 8px;
+  border: solid 2px whitesmoke;
 }
 
 .searchText {
@@ -176,6 +179,7 @@
 .label{
   color: white;
   font-size: larger;
+  margin-bottom: 10px;
 }
 
 .searchButton {
@@ -183,6 +187,8 @@
   font-size: larger;
   background-color: var(--secondary-color);
   margin-top: 15px;
+  border-radius: 8px;
+  border: solid 2px whitesmoke;
 }
 
 .searchInput {
@@ -256,15 +262,14 @@
 
 
 /* Homepage */
-
 .heroImage {
   background-color: yellow;
   position: relative;
-  height: 500px;
+  height: 600px;
   background-image: url('/heroImage.jpg');
   background-size: cover;
   background-position: center;
-  margin-top: 15%;
+  margin-top: 10%;
   overflow: hidden;
 }
   

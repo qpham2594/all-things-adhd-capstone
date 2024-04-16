@@ -6,6 +6,7 @@ export default function Home() {
   return (
     <main className={styles.body}>
       <Header />
+    <div className={styles.containerhome}>
       <div className={styles.pageWrapper}>
         <div className={styles.heroImage}>
           <div className={styles.overlay}>
@@ -21,6 +22,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
       </div>
       
     </main>
