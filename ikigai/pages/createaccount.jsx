@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import {useRouter} from 'next/router';
 import styles from '@/styles/page.module.css';
+import Head from "next/head";
+
+
 const createAccountForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -61,6 +64,10 @@ const createAccountForm = () => {
 
   return (
     <div className={styles.formContainer}>
+      <Head>
+        <title> Ikigai Create Account </title>
+        <meta name="description" content="Ikigai create account page" />
+      </Head>
       <form onSubmit={handleSubmit} className={styles.formBox}>
         <div className={styles.textWrapper}>
           <label htmlFor="username" className={styles.formText}>Username:</label>
