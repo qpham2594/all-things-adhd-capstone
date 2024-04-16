@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import styles from '@/styles/page.module.css';
-//import Head from 'next/head';
+import Head from 'next/head';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
