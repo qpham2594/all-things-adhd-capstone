@@ -72,18 +72,18 @@ export default function MonthlyList({ session }) {
     }
   };
 
-  const deleteTask = async (_id) => {
+  const deleteTask = async (id) => {
     try {
-      const response = await fetch('/api/todo', {
+      const response = await fetch(`/api/todo?id=${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id: _id }),
+        body: JSON.stringify({ id: id }),
       });
 
       if (response.ok) {
-        setTasks((prevTasks) => prevTasks.filter((task) => task._id !== _id));
+        setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
       } else {
         console.error('Error deleting task:', await response.json());
       }
