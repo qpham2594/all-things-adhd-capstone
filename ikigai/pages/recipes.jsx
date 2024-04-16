@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { recipesSearch, recipesByTime } from '../app/api/recipes/route';
 import styles from '@/styles/page.module.css';
-import Head from 'next/head';
 
 function RecipeSearchPage() {
   const [query, setQuery] = useState('');
@@ -31,11 +30,6 @@ function RecipeSearchPage() {
 
   return (
     <div>
-       <Head>
-        <title>Search Recipes - Find Delicious Recipes by Ingredients or Time</title>
-        <meta name="description" content="Looking for new recipes? Search recipes by ingredients or cooking time to discover delicious meals. Start cooking now!" />
-        <html lang="en" />
-      </Head>
       <h1 className={styles.h1}>Recipe Search</h1>
       <div className={styles.recipeSearchContainer}>
         <label className={styles.searchText}>

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import styles from '@/styles/page.module.css';
-import Head from 'next/head';
 
 export default function MonthlyList({ session }) {
   const [tasks, setTasks] = useState([]);
@@ -130,11 +129,6 @@ export default function MonthlyList({ session }) {
   return (
     
     <div className={styles.todoAddBox}>
-      <Head>
-          <title>Ikigai Logout</title>
-          <meta name="description" content="You're on the logout page! Make sure you log out!" />
-          <html lang="en" />
-        </Head>
       <h1 className={styles.h1}> Monthly List</h1>
       {session ? (
         <>
