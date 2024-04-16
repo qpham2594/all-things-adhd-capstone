@@ -3,7 +3,6 @@ import { getSession } from 'next-auth/react';
 import styles from '@/styles/page.module.css';
 import Head from "next/head";
 
-
 export default function MonthlyList({ session }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
@@ -72,35 +71,6 @@ export default function MonthlyList({ session }) {
       console.error('Error adding task:', error);
     }
   };
-  const updateTask = async (_id, updatedTask) => {
-    try {
-      updatedTask = updatedTask || '';
-
-      const response = await fetch(`/api/todo/`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: _id,
-          task: updatedTask,
-          date: new Date(),
-        }),
-      });
-
-      if (response.ok) {
-        setTasks((prevTasks) =>
-          prevTasks.map((task) =>
-            task._id === _id ? { ...task, task: updatedTask } : task
-          )
-        );
-      } else {
-        console.error('Error updating task:', await response.json());
-      }
-    } catch (error) {
-      console.error('Error updating task:', error);
-    }
-  };
 
   const deleteTask = async (_id) => {
     try {
@@ -129,7 +99,6 @@ export default function MonthlyList({ session }) {
   };
 
   return (
-    
     <div className={styles.todoAddBox}>
       <Head>
         <title> Ikigai To-do List </title>
@@ -164,22 +133,19 @@ export default function MonthlyList({ session }) {
             </div>
           </div>    
           <div className={styles.taskListContainer}>
-          <ul className={styles.taskList}>
-            {tasks.map((task, index) => (
-              <li key={task._id}>
-                <span
-                  onClick={() => updateTaskStatus(index)}
-                  style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
-                >
-                  {task.task}
-                </span>{' '}
-                <button onClick={() => updateTask(task._id, prompt('Enter updated task:'))} className={styles.todoButton}>
-                  Update
-                </button>{' '}
-                <button onClick={() => deleteTask(task._id)} className={styles.todoButton}>Delete</button>
-              </li>
-            ))}
-          </ul>
+            <ul className={styles.taskList}>
+              {tasks.map((task, index) => (
+                <li key={task._id}>
+                  <span
+                    onClick={() => updateTaskStatus(index)}
+                    style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
+                  >
+                    {task.task}
+                  </span>{' '}
+                  <button onClick={() => deleteTask(task._id)} className={styles.todoButton}>Delete</button>
+                </li>
+              ))}
+            </ul>
           </div>  
           {revealPuzzle && (
             <div>
@@ -195,7 +161,7 @@ export default function MonthlyList({ session }) {
                       />             
                     ))}
                   </div>
-                  </div>                
+                </div>                
               </div>
             </div>
           )}
@@ -233,4 +199,3 @@ export async function getServerSideProps(context) {
     };
   }
 }
-
