@@ -9,3 +9,9 @@ html, body {
   margin: 0;
 }
 
+body {
+  background-image: url(../public/background3.jpg); 
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: top left;
+}
