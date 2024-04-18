@@ -77,3 +77,4 @@ const authenticationStep = {
 const handler = NextAuth(authenticationStep);
 
 export { handler as GET, handler as POST };
+

@@ -29,8 +29,9 @@ export async function POST(req) {
     }
 
     // Set a cookie for the authenticated user
-    const cookie = `user_id=${user._id}; Path=/; HttpOnly`;
-    return NextResponse.json({ message: "Login successful", name: user.name }).cookie(cookie);
+const cookie = `user_id=${user._id}; Path=/; HttpOnly`;
+return NextResponse.json({ message: "Login successful", name: user.name }).setHeader('Set-Cookie', cookie);
+
   } catch (error) {
     console.error("Error during login:", error);
     return NextResponse.status(500).json({ error: "Internal Server Error" });
