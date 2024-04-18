@@ -6,7 +6,7 @@ import Head from "next/head";
 export default function MonthlyList({ session }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());;
   const [completedTasks, setCompletedTasks] = useState(0);
   const [puzzlePiecesRevealed, setPuzzlePiecesRevealed] = useState(0);
   const [revealPuzzle, setRevealPuzzle] = useState(false);
@@ -122,13 +122,12 @@ export default function MonthlyList({ session }) {
                 placeholder="Enter new task"
                 className={styles.taskInput}
               />
-              <input
-                type="date"
-                value={selectedDate}
-                onChange={(e) => setSelectedDate(e.target.value)}
-                placeholder="Select date"
-                className={styles.taskInput}
-              />
+            <input
+              type="date"
+              value={new Date().toISOString().split('T')[0]} // Convert current date to string in yyyy-mm-dd format
+              onChange={(e) => console.log(new Date(e.target.value))}
+              className={styles.taskInput}
+            />
               <button onClick={addTask} className={styles.addTaskButton}>Add Task</button>
             </div>
           </div>    
