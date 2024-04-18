@@ -6,7 +6,7 @@ import Head from "next/head";
 export default function MonthlyList({ session }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
-  const [selectedDate, setSelectedDate] = useState(new Date());;
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [completedTasks, setCompletedTasks] = useState(0);
   const [puzzlePiecesRevealed, setPuzzlePiecesRevealed] = useState(0);
   const [revealPuzzle, setRevealPuzzle] = useState(false);
@@ -18,15 +18,18 @@ export default function MonthlyList({ session }) {
     }
   }, [session]);
 
-  const fetchTasks = async () => {
-    try {
-      const response = await fetch('/api/todo');
-      const data = await response.json();
-      setTasks(data);
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
+  useEffect(() => {
+    // Load tasks from localStorage on initial load
+    const savedTasks = localStorage.getItem('tasks');
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    // Save tasks to localStorage whenever tasks change
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
 
   useEffect(() => {
     setCompletedTasks(tasks.filter((task) => task.completed).length);
@@ -44,6 +47,16 @@ export default function MonthlyList({ session }) {
     }
   }, [completedTasks, puzzlePiecesRevealed, revealedTasks]);
 
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch('/api/todo');
+      const data = await response.json();
+      setTasks(data);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    }
+  };
+
   const addTask = async () => {
     try {
       const newTaskData = {
@@ -51,8 +64,6 @@ export default function MonthlyList({ session }) {
         date: selectedDate || new Date(),
       };
 
-      setTasks((prevTasks) => [...prevTasks, newTaskData]);
-  
       const response = await fetch('/api/todo', {
         method: 'POST',
         headers: {
@@ -64,6 +75,7 @@ export default function MonthlyList({ session }) {
       if (response.ok) {
         setNewTask('');
         setSelectedDate('');
+        fetchTasks(); // Fetch updated tasks after adding a new one
       } else {
         console.error('Error adding task:', await response.json());
       }
@@ -83,7 +95,7 @@ export default function MonthlyList({ session }) {
       });
 
       if (response.ok) {
-        setTasks((prevTasks) => prevTasks.filter((task) => task._id !== id));
+        fetchTasks(); // Fetch updated tasks after deleting one
       } else {
         console.error('Error deleting task:', await response.json());
       }
@@ -92,10 +104,32 @@ export default function MonthlyList({ session }) {
     }
   };
 
-  const updateTaskStatus = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks[index].completed = !updatedTasks[index].completed;
-    setTasks(updatedTasks);
+  const updateTaskStatus = async (index) => {
+    try {
+      const updatedTasks = [...tasks];
+      updatedTasks[index].completed = !updatedTasks[index].completed;
+      setTasks(updatedTasks);
+
+      // Update localStorage with the modified tasks array
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+
+      const response = await fetch('/api/todo', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: tasks[index]._id,
+          completed: updatedTasks[index].completed,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('Error updating task status:', await response.json());
+      }
+    } catch (error) {
+      console.error('Error updating task status:', error);
+    }
   };
 
   return (
@@ -137,7 +171,7 @@ export default function MonthlyList({ session }) {
                 <li key={task._id}>
                   <span
                     onClick={() => updateTaskStatus(index)}
-                    style={{ textDecoration: task.completed ? 'line-through' : 'none' }}
+                    style={{ textDecoration: task.completed ? 'line-through' : 'none', cursor: 'pointer' }}
                   >
                     {task.task}
                   </span>{' '}

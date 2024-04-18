@@ -13,7 +13,11 @@ const monthlyListSchema = new Schema({
   task: {
     type: String,
     required: true,
-  }
+  },
+  completed: {
+    type: Boolean,
+    default: false, // default to false indicating the task is not completed
+  },
 });
 
 export default mongoose.models.MonthlyList || mongoose.model('MonthlyList', monthlyListSchema);
