@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '@/styles/header.module.css';
 import Head from 'next/head';
 
@@ -11,6 +11,20 @@ export default function Header() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
+  useEffect(() => {
+    const closeMenuOnClickOutside = (event) => {
+      if (menuOpen && !event.target.closest(`.${styles.header}`)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.body.addEventListener('click', closeMenuOnClickOutside);
+
+    return () => {
+      document.body.removeEventListener('click', closeMenuOnClickOutside);
+    };
+  }, [menuOpen]);
 
   return (
     <header className={styles.header}>
@@ -34,3 +48,4 @@ export default function Header() {
     </header>
   );
 }
+
