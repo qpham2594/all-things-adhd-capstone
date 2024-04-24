@@ -137,6 +137,7 @@ export default function MonthlyList({ session }) {
       <Head>
         <title> Ikigai To-do List </title>
         <meta name="description" content="Ikigai To-do List" />
+        <link rel="icon" href='/favicontransparent.png'/>
       </Head>
       <h1 className={styles.h1}> Your To-do List</h1>
       {session ? (

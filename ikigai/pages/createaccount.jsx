@@ -67,6 +67,7 @@ const createAccountForm = () => {
       <Head>
         <title> Ikigai Create Account </title>
         <meta name="description" content="Ikigai create account page" />
+        <link rel="icon" href='/favicontransparent.png'/>
       </Head>
       <form onSubmit={handleSubmit} className={styles.formBox}>
         <div className={styles.textWrapper}>

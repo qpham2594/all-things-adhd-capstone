@@ -34,6 +34,7 @@ function RecipeSearchPage() {
       <Head>
         <title> Ikigai Recipes Search </title>
         <meta name="description" content="Search for your recipes based on ingredients or time here!" />
+        <link rel="icon" href='/favicontransparent.png'/>
       </Head>
       <h1 className={styles.h1}>Recipe Search</h1>
       <div className={styles.recipeSearchContainer}>

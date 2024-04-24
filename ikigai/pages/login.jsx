@@ -58,6 +58,7 @@ const LoginForm = () => {
       <Head>
         <title> Ikigai Login </title>
         <meta name="description" content="Ikigai login page" />
+        <link rel="icon" href='/favicontransparent.png'/>
       </Head>
       <form onSubmit={handleSubmit} className={styles.formBox}>
         <div className={styles.textWrapper}>

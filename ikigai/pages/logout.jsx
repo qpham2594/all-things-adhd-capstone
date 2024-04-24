@@ -17,6 +17,7 @@ const LogoutPage = () => {
       <Head>
         <title> Ikigai Logout </title>
         <meta name="description" content="Ikigai logout page" />
+        <link rel="icon" href='/favicontransparent.png'/>
       </Head>
       <h1 className={styles.h1}>Logout</h1>
       <p className={styles.logoutText}> Make you sure log out! Once you log out, it will notify you that you have logged out. <br></br>
