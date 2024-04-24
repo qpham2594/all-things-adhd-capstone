@@ -42,7 +42,7 @@ const LoginForm = () => {
       }
 
       // Redirect to the desired page after successful login
-      router.replace('/');
+      router.replace('/monthlylist');
     } catch (error) {
       console.error('Error when logging in:', error);
       setError('Error occurred during log in. Please try again.');
